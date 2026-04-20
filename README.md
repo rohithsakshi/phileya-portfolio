@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Phileya Susan Koruth — Portfolio
+
+A professional biomedical engineering portfolio built with **Next.js 14**, **Tailwind CSS**, and **TypeScript**.
+
+## Design
+
+- **Aesthetic**: Rich burgundy/wine & gold — elegant, medical, professional
+- **Fonts**: Playfair Display (headings) · Cormorant Garamond (body) · Jost (UI labels)
+- **Sections**: Hero → About → Experience → Education → Projects → Research → Skills → Contact
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js 18.17 or later
+- npm or yarn
+
+### Installation
 
 ```bash
+# 1. Install dependencies
+npm install
+
+# 2. Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/
+│   ├── globals.css     ← All CSS variables, base styles, utilities
+│   ├── layout.tsx      ← Root layout with fonts & metadata
+│   └── page.tsx        ← Main page (assembles all sections)
+└── components/
+    ├── Navbar.tsx
+    ├── Hero.tsx
+    ├── About.tsx
+    ├── Experience.tsx
+    ├── Education.tsx
+    ├── Projects.tsx
+    ├── Research.tsx
+    ├── Skills.tsx
+    ├── Contact.tsx
+    └── Footer.tsx
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Customisation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+All content is in the component files — no CMS or database needed.
 
-## Deploy on Vercel
+- **Personal info**: Edit `About.tsx`, `Contact.tsx`, `Hero.tsx`
+- **Experience**: Edit the `experiences` array in `Experience.tsx`
+- **Projects**: Edit the `projects` array in `Projects.tsx`
+- **Skills**: Edit the `skillGroups` array in `Skills.tsx`
+- **Colors**: Edit CSS variables in `globals.css` (`:root` block)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deploy to Vercel for zero-config hosting:
+
+```bash
+npx vercel
+```
+
+Or push to GitHub and connect via [vercel.com](https://vercel.com).
