@@ -1,140 +1,227 @@
-'use client'
+"use client";
+
+const contactItems = [
+  {
+    label: "Email",
+    value: "phileyakoruth10@gmail.com",
+    href: "mailto:phileyakoruth10@gmail.com",
+    icon: "✉",
+  },
+  {
+    label: "LinkedIn",
+    value: "linkedin.com/in/phileya-susan-koruth",
+    href: "https://www.linkedin.com/in/phileya-susan-koruth-551802263",
+    icon: "⟐",
+  },
+  {
+    label: "Location",
+    value: "Heidelberg, Germany",
+    href: null,
+    icon: "◎",
+  },
+];
 
 export default function Contact() {
   return (
     <section
       id="contact"
-      className="py-28 px-6 md:px-10 relative overflow-hidden"
-      style={{
-        background: `
-          radial-gradient(ellipse at 30% 70%, rgba(107, 26, 42, 0.8) 0%, transparent 50%),
-          linear-gradient(160deg, #2E0910 0%, #4A0F1C 60%, #3A0E18 100%)
-        `,
-      }}
+      className="psk-section psk-section--elevated"
     >
-      {/* Decorative element */}
+      <div className="psk-grid-overlay" />
+
+      {/* Ambient Glow */}
       <div
-        className="absolute bottom-0 right-0 w-72 h-72 opacity-5 pointer-events-none"
-        style={{ color: 'var(--gold)', fontSize: '18rem', lineHeight: 1 }}
+        style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          background:
+            "radial-gradient(ellipse 60% 60% at 70% 50%, rgba(15,164,175,0.06) 0%, transparent 70%)",
+        }}
+      />
+
+      <div
+        className="psk-container"
+        style={{
+          position: "relative",
+          zIndex: 1,
+        }}
       >
-        ✚
-      </div>
-
-      <div className="max-w-6xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-          {/* Left */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns:
+              "minmax(320px, 1.2fr) minmax(280px, 0.8fr)",
+            gap: "56px",
+            alignItems: "start",
+          }}
+        >
+          {/* LEFT */}
           <div>
-            <p className="section-label text-[var(--gold)] mb-4">07 — Contact</p>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-[var(--cream)] mb-6 leading-tight">
-              Let's Build
+            <div className="psk-section-label">
+              <span>07 — Contact</span>
+            </div>
+
+            <h2 className="psk-section-title">
+              Let’s Build
               <br />
-              <span className="text-[var(--gold)] italic font-normal">Something Together</span>
+              <strong>Something Together</strong>
             </h2>
-            <p className="font-body text-[rgba(248,243,236,0.7)] text-lg leading-relaxed mb-10">
-              Open to research collaborations, clinical engineering roles, internships, and
-              academic opportunities — particularly in Germany and Europe. I am always glad to
-              connect with professionals in the medical device and healthcare technology space.
+
+            <p className="psk-section-subtitle">
+              Open to research collaborations, clinical
+              engineering roles, internships, and academic
+              opportunities across Germany and Europe.
             </p>
 
-            {/* Contact details */}
-            <div className="space-y-5">
-              {[
-                {
-                  label: 'Email',
-                  value: 'phileyakoruth10@gmail.com',
-                  href:  'mailto:phileyakoruth10@gmail.com',
-                  icon:  '✉',
-                },
-                {
-                  label: 'LinkedIn',
-                  value: 'linkedin.com/in/phileya-susan-koruth-551802263',
-                  href:  'https://www.linkedin.com/in/phileya-susan-koruth-551802263',
-                  icon:  '⟐',
-                },
-                {
-                  label: 'Location',
-                  value: 'Heidelberg, Germany',
-                  href:  null,
-                  icon:  '◎',
-                },
-              ].map(c => (
-                <div key={c.label} className="flex items-start gap-4">
+            <p
+              style={{
+                fontSize: "15px",
+                color: "var(--text-secondary)",
+                lineHeight: 1.85,
+                maxWidth: "520px",
+                marginBottom: "40px",
+              }}
+            >
+              I enjoy connecting with professionals working
+              in biomedical systems, patient safety,
+              healthcare technology, and medical device
+              innovation. If your work lives somewhere
+              between engineering and human impact — we’ll
+              probably get along.
+            </p>
+
+            <a
+              href="mailto:phileyakoruth10@gmail.com"
+              style={{
+                display: "inline-block",
+                padding: "14px 34px",
+                borderRadius: "999px",
+                background:
+                  "linear-gradient(135deg, var(--teal-aqua), var(--teal-deep))",
+                color: "#AFDDE5",
+                fontSize: "12px",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                fontWeight: 500,
+                boxShadow:
+                  "0 12px 32px rgba(15,164,175,0.18)",
+              }}
+            >
+              Start a Conversation
+            </a>
+          </div>
+
+          {/* RIGHT */}
+          <div
+            className="psk-card"
+            style={{
+              padding: "32px",
+              borderColor: "var(--border-medium)",
+            }}
+          >
+            <p
+              style={{
+                fontSize: "9px",
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                color: "var(--teal-aqua)",
+                fontFamily: "var(--font-mono)",
+                marginBottom: "28px",
+              }}
+            >
+              Contact Details
+            </p>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "28px",
+              }}
+            >
+              {contactItems.map((item) => (
+                <div
+                  key={item.label}
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: "16px",
+                  }}
+                >
+                  {/* Icon */}
                   <div
-                    className="w-8 h-8 flex items-center justify-center flex-shrink-0 text-[var(--gold)] text-sm border border-[rgba(212,168,71,0.3)]"
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      border:
+                        "0.5px solid var(--border-medium)",
+                      borderRadius: "10px",
+                      background:
+                        "rgba(15,74,79,0.28)",
+                      color: "var(--teal-aqua)",
+                      fontSize: "15px",
+                      flexShrink: 0,
+                    }}
                   >
-                    {c.icon}
+                    {item.icon}
                   </div>
+
                   <div>
-                    <div className="font-ui text-[10px] tracking-widest uppercase text-[rgba(248,243,236,0.4)] mb-0.5">
-                      {c.label}
-                    </div>
-                    {c.href ? (
+                    <p
+                      style={{
+                        fontSize: "9px",
+                        letterSpacing: "0.18em",
+                        textTransform: "uppercase",
+                        color: "var(--text-muted)",
+                        marginBottom: "6px",
+                        fontFamily:
+                          "var(--font-mono)",
+                      }}
+                    >
+                      {item.label}
+                    </p>
+
+                    {item.href ? (
                       <a
-                        href={c.href}
-                        className="font-body text-[rgba(248,243,236,0.85)] hover:text-[var(--gold)] transition-colors text-sm break-all"
-                        target={c.href.startsWith('http') ? '_blank' : undefined}
-                        rel="noreferrer"
+                        href={item.href}
+                        target={
+                          item.href.startsWith("http")
+                            ? "_blank"
+                            : undefined
+                        }
+                        rel="noopener noreferrer"
+                        style={{
+                          fontSize: "14px",
+                          color:
+                            "var(--text-primary)",
+                          lineHeight: 1.6,
+                        }}
                       >
-                        {c.value}
+                        {item.value}
                       </a>
                     ) : (
-                      <span className="font-body text-[rgba(248,243,236,0.85)] text-sm">
-                        {c.value}
-                      </span>
+                      <p
+                        style={{
+                          fontSize: "14px",
+                          color:
+                            "var(--text-primary)",
+                          lineHeight: 1.6,
+                        }}
+                      >
+                        {item.value}
+                      </p>
                     )}
                   </div>
                 </div>
               ))}
             </div>
           </div>
-
-          {/* Right – CTA card */}
-          <div
-            className="p-10"
-            style={{
-              background: 'rgba(255,255,255,0.05)',
-              border:     '1px solid rgba(212,168,71,0.25)',
-              backdropFilter: 'blur(8px)',
-            }}
-          >
-            <div className="text-4xl text-[var(--gold)] mb-6 text-center">✚</div>
-            <h3 className="font-display text-2xl font-semibold text-[var(--cream)] text-center mb-3">
-              Currently Available
-            </h3>
-            <p className="font-body text-[rgba(248,243,236,0.6)] text-center mb-8 text-sm leading-relaxed">
-              Open to research, internships, and clinical engineering opportunities across Europe.
-            </p>
-
-            <div className="space-y-3">
-              <a
-                href="mailto:phileyakoruth10@gmail.com"
-                className="block w-full text-center py-3.5 font-ui text-sm tracking-widest uppercase transition-all duration-300"
-                style={{
-                  background: 'var(--gold)',
-                  color:      'var(--wine-deeper)',
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.background = 'var(--gold-light)'
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.background = 'var(--gold)'
-                }}
-              >
-                Send an Email
-              </a>
-              <a
-                href="https://www.linkedin.com/in/phileya-susan-koruth-551802263"
-                target="_blank"
-                rel="noreferrer"
-                className="block w-full text-center py-3.5 font-ui text-sm tracking-widest uppercase border border-[rgba(212,168,71,0.4)] text-[var(--gold)] hover:bg-[rgba(212,168,71,0.1)] transition-all duration-300"
-              >
-                View LinkedIn
-              </a>
-            </div>
-          </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

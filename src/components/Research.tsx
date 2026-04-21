@@ -1,50 +1,126 @@
 'use client'
 
+const certifications = [
+  {
+    title:    'Biomedical Visualisation',
+    provider: 'Coursera',
+    status:   'Completed',
+    badge:    'complete',
+    note:     'Techniques for medical illustration and imaging data visualisation.',
+  },
+  {
+    title:    'Additional Certification',
+    provider: 'Forthcoming',
+    status:   'Planned',
+    badge:    'planned',
+    note:     'IEC 60601-1 awareness or clinical informatics — in consideration.',
+  },
+]
+
 export default function Research() {
   return (
-    <section
-      id="research"
-      className="py-28 px-6 md:px-10"
-      style={{ background: 'var(--wine-darker, #3A0E18)' }}
-    >
-      <div className="max-w-6xl mx-auto">
-        <p className="section-label text-[var(--gold)] mb-4">05 — Research &amp; Publications</p>
-        <h2 className="font-display text-4xl md:text-5xl font-bold text-[var(--cream)] mb-4 leading-tight">
-          Academic
-          <span className="text-[var(--gold)] italic font-normal"> Output</span>
+    <section id="research" className="psk-section psk-section--elevated">
+      <div className="psk-grid-overlay" />
+
+      <div className="psk-container" style={{ position: 'relative', zIndex: 1 }}>
+        <div className="psk-section-label">
+          <span>05 — Research &amp; Publications</span>
+        </div>
+        <h2 className="psk-section-title">
+          Academic <strong>Output</strong>
         </h2>
-        <p className="font-body text-[rgba(248,243,236,0.65)] text-lg mb-14 max-w-xl">
+        <p className="psk-section-subtitle">
           Ongoing research at the intersection of clinical engineering and medical device safety.
           Publications and conference contributions will appear here as they are completed.
         </p>
 
         {/* Active Research */}
-        <div className="mb-10">
-          <h3 className="font-ui text-xs tracking-widest uppercase text-[var(--gold)] mb-6">
-            Active Research
-          </h3>
-          <div
-            className="p-8 border border-[rgba(212,168,71,0.25)] relative overflow-hidden"
-            style={{ background: 'rgba(255,255,255,0.04)' }}
+        <div style={{ marginBottom: '48px' }}>
+          <p
+            style={{
+              fontSize: '9px',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              color: 'var(--teal-aqua)',
+              fontFamily: 'var(--font-mono)',
+              marginBottom: '20px',
+            }}
           >
-            {/* Pulsing indicator */}
-            <div className="flex items-center gap-3 mb-4">
+            Active Research
+          </p>
+
+          <div
+            className="psk-card"
+            style={{
+              padding: '32px',
+              borderColor: 'var(--border-medium)',
+              background: 'rgba(15,74,79,0.3)',
+            }}
+          >
+            {/* Status indicator */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                marginBottom: '16px',
+              }}
+            >
               <span
-                className="w-2.5 h-2.5 rounded-full bg-[#4CAF80] flex-shrink-0"
-                style={{ animation: 'pulse 2s ease-in-out infinite', boxShadow: '0 0 6px rgba(76,175,128,0.5)' }}
+                className="pulse-dot"
+                style={{
+                  display: 'inline-block',
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  background: '#4ECDC4',
+                  flexShrink: 0,
+                }}
               />
-              <span className="font-ui text-xs tracking-widest uppercase text-[#4CAF80]">
+              <span
+                style={{
+                  fontSize: '10px',
+                  letterSpacing: '0.16em',
+                  textTransform: 'uppercase',
+                  color: '#4ECDC4',
+                  fontFamily: 'var(--font-mono)',
+                }}
+              >
                 In Progress
               </span>
             </div>
 
-            <h4 className="font-display text-xl font-semibold text-[var(--cream)] mb-2">
+            <h4
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(18px, 2.2vw, 22px)',
+                fontWeight: 500,
+                color: 'var(--text-primary)',
+                marginBottom: '6px',
+              }}
+            >
               M.Sc. Thesis Research
             </h4>
-            <p className="font-ui text-sm text-[var(--gold)] mb-3">
+
+            <p
+              style={{
+                fontSize: '12px',
+                color: 'var(--teal-aqua)',
+                letterSpacing: '0.04em',
+                marginBottom: '16px',
+                fontFamily: 'var(--font-mono)',
+              }}
+            >
               Heidelberg University · 2025 – 2027
             </p>
-            <p className="font-body text-[rgba(248,243,236,0.65)] leading-relaxed">
+
+            <p
+              style={{
+                fontSize: 'clamp(14px, 1.5vw, 15px)',
+                color: 'var(--text-secondary)',
+                lineHeight: 1.8,
+              }}
+            >
               Research topic currently under development in collaboration with academic supervisors
               at Heidelberg University. Focus area spans biomedical instrumentation, clinical data
               systems, and medical device engineering. Title and abstract will be published upon
@@ -53,50 +129,84 @@ export default function Research() {
           </div>
         </div>
 
-        {/* Certifications as academic output */}
-        <div className="mb-10">
-          <h3 className="font-ui text-xs tracking-widest uppercase text-[var(--gold)] mb-6">
+        {/* Certifications */}
+        <div style={{ marginBottom: '48px' }}>
+          <p
+            style={{
+              fontSize: '9px',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              color: 'var(--teal-aqua)',
+              fontFamily: 'var(--font-mono)',
+              marginBottom: '20px',
+            }}
+          >
             Certifications &amp; Coursework
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {[
-              {
-                title:    'Biomedical Visualisation',
-                provider: 'Coursera',
-                status:   'Completed',
-                note:     'Techniques for medical illustration and imaging data visualisation.',
-              },
-              {
-                title:    'Additional Certification',
-                provider: 'Forthcoming',
-                status:   'Planned',
-                note:     'IEC 60601-1 awareness or clinical informatics — in consideration.',
-              },
-            ].map((cert, idx) => (
+          </p>
+
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '16px',
+            }}
+          >
+            {certifications.map((cert, idx) => (
               <div
                 key={idx}
-                className="p-6 border"
+                className="psk-card"
                 style={{
-                  border:     `1px solid ${cert.status === 'Completed' ? 'rgba(212,168,71,0.3)' : 'rgba(255,255,255,0.08)'}`,
-                  background: cert.status === 'Completed' ? 'rgba(184,137,42,0.07)' : 'rgba(255,255,255,0.02)',
+                  padding: '24px',
+                  borderColor:
+                    cert.badge === 'complete'
+                      ? 'var(--border-medium)'
+                      : 'var(--border-subtle)',
+                  background:
+                    cert.badge === 'complete'
+                      ? 'rgba(15,74,79,0.25)'
+                      : 'var(--bg-card)',
                 }}
               >
-                <div className="flex justify-between items-start mb-3">
-                  <span
-                    className="font-ui text-[10px] tracking-widest uppercase px-2 py-0.5"
-                    style={{
-                      border:     `1px solid ${cert.status === 'Completed' ? 'rgba(212,168,71,0.4)' : 'rgba(255,255,255,0.15)'}`,
-                      color:      cert.status === 'Completed' ? 'var(--gold)' : 'rgba(248,243,236,0.35)',
-                    }}
-                  >
-                    {cert.status}
-                  </span>
-                </div>
-                <h4 className="font-display text-base font-semibold text-[var(--cream)] mb-1">
+                <span
+                  className={`psk-badge psk-badge--${cert.badge}`}
+                  style={{ marginBottom: '14px', display: 'inline-block' }}
+                >
+                  {cert.status}
+                </span>
+
+                <h4
+                  style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '16px',
+                    fontWeight: 500,
+                    color: 'var(--text-primary)',
+                    marginBottom: '4px',
+                  }}
+                >
                   {cert.title}
                 </h4>
-                <p className="font-ui text-xs text-[var(--gold)] mb-2">{cert.provider}</p>
-                <p className="font-body text-sm text-[rgba(248,243,236,0.5)]">{cert.note}</p>
+
+                <p
+                  style={{
+                    fontSize: '11px',
+                    color: 'var(--teal-aqua)',
+                    letterSpacing: '0.04em',
+                    marginBottom: '10px',
+                    fontFamily: 'var(--font-mono)',
+                  }}
+                >
+                  {cert.provider}
+                </p>
+
+                <p
+                  style={{
+                    fontSize: '13px',
+                    color: 'var(--text-muted)',
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {cert.note}
+                </p>
               </div>
             ))}
           </div>
@@ -104,18 +214,55 @@ export default function Research() {
 
         {/* Publications placeholder */}
         <div>
-          <h3 className="font-ui text-xs tracking-widest uppercase text-[var(--gold)] mb-6">
-            Publications &amp; Conferences
-          </h3>
-          <div
-            className="p-8 border border-dashed border-[rgba(212,168,71,0.2)] text-center"
-            style={{ background: 'rgba(255,255,255,0.02)' }}
+          <p
+            style={{
+              fontSize: '9px',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              color: 'var(--teal-aqua)',
+              fontFamily: 'var(--font-mono)',
+              marginBottom: '20px',
+            }}
           >
-            <div className="text-3xl text-[rgba(212,168,71,0.3)] mb-3">✦</div>
-            <p className="font-ui text-xs tracking-widest uppercase text-[rgba(248,243,236,0.3)] mb-2">
+            Publications &amp; Conferences
+          </p>
+
+          <div
+            style={{
+              padding: '40px',
+              border: '0.5px dashed var(--border-soft)',
+              borderRadius: '16px',
+              textAlign: 'center',
+              background: 'rgba(15,74,79,0.06)',
+            }}
+          >
+            <div
+              style={{
+                fontSize: '24px',
+                color: 'var(--border-medium)',
+                marginBottom: '12px',
+              }}
+            >
+              ✦
+            </div>
+            <p
+              style={{
+                fontSize: '9px',
+                letterSpacing: '0.2em',
+                textTransform: 'uppercase',
+                color: 'var(--text-muted)',
+                marginBottom: '8px',
+                fontFamily: 'var(--font-mono)',
+              }}
+            >
               In Development
             </p>
-            <p className="font-body text-[rgba(248,243,236,0.45)]">
+            <p
+              style={{
+                fontSize: '15px',
+                color: 'var(--text-secondary)',
+              }}
+            >
               Conference posters and academic publications are planned as part of M.Sc. research.
               This section will be updated as outputs are completed.
             </p>

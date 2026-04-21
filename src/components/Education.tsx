@@ -1,93 +1,168 @@
-'use client'
+"use client";
 
 const education = [
   {
-    degree:      'M.Sc. Biomedical Engineering',
-    institution: 'Heidelberg University',
-    location:    'Heidelberg, Germany',
-    period:      'Oct 2025 — Present',
-    status:      'In Progress',
-    note:        'Currently completing core curriculum in biomedical instrumentation, medical imaging, and clinical data systems.',
-    highlight:   true,
+    degree: "M.Sc. Biomedical Engineering",
+    institution: "Heidelberg University",
+    location: "Heidelberg, Germany",
+    period: "Oct 2025 — Present",
+    status: "In Progress",
+    badge: "active",
+    note:
+      "Currently completing core curriculum in biomedical instrumentation, medical imaging, and clinical data systems.",
+    highlight: true,
   },
   {
-    degree:      'B.Tech Biomedical Engineering',
-    institution: 'APJ Abdul Kalam Technological University',
-    location:    'Kerala, India',
-    period:      '2020 — 2024',
-    status:      'First Class · 91%',
-    note:        'Graduated with first-class honours. Final year project in biomedical device design.',
-    highlight:   false,
+    degree: "B.Tech Biomedical Engineering",
+    institution:
+      "APJ Abdul Kalam Technological University",
+    location: "Kerala, India",
+    period: "2020 — 2024",
+    status: "First Class · 91%",
+    badge: "complete",
+    note:
+      "Graduated with first-class honours. Final year project in biomedical device design.",
+    highlight: false,
   },
-]
+];
 
 export default function Education() {
   return (
     <section
-      className="py-24 px-6 md:px-10"
-      style={{ background: 'var(--cream-warm)' }}
+      id="education"
+      className="psk-section psk-section--elevated"
     >
-      <div className="max-w-6xl mx-auto">
-        <p className="section-label mb-4">03 — Education</p>
-        <h2 className="font-display text-4xl md:text-5xl font-bold text-[var(--wine)] mb-12 leading-tight">
-          Academic
-          <span className="text-[var(--gold)] italic font-normal"> Foundation</span>
+      <div className="psk-grid-overlay" />
+
+      <div
+        className="psk-container"
+        style={{
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        <div className="psk-section-label">
+          <span>03 — Education</span>
+        </div>
+
+        <h2 className="psk-section-title">
+          Academic <strong>Foundation</strong>
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <p className="psk-section-subtitle">
+          A strong academic path shaped by biomedical
+          engineering, clinical systems, and healthcare
+          technology.
+        </p>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(320px, 1fr))",
+            gap: "24px",
+          }}
+        >
           {education.map((edu, idx) => (
             <div
               key={idx}
-              className="p-8 relative overflow-hidden"
+              className="psk-card"
               style={{
-                background: edu.highlight ? 'var(--wine)' : 'white',
-                border:     `1px solid ${edu.highlight ? 'rgba(212,168,71,0.4)' : 'rgba(184,137,42,0.2)'}`,
+                padding: "32px",
+                position: "relative",
+                overflow: "hidden",
+                borderColor: edu.highlight
+                  ? "var(--border-medium)"
+                  : "var(--border-subtle)",
+                background: edu.highlight
+                  ? "linear-gradient(145deg, rgba(15,74,79,0.5) 0%, rgba(0,49,53,0.6) 100%)"
+                  : "var(--bg-card)",
               }}
             >
-              {/* Decorative corner */}
+              {/* Corner Accent */}
               <div
-                className="absolute top-0 right-0 w-20 h-20 opacity-10"
                 style={{
-                  background:       edu.highlight ? 'var(--gold)' : 'var(--wine)',
-                  clipPath: 'polygon(100% 0, 0 0, 100% 100%)',
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  width: "90px",
+                  height: "90px",
+                  background: edu.highlight
+                    ? "rgba(15,164,175,0.06)"
+                    : "rgba(175,221,229,0.03)",
+                  clipPath:
+                    "polygon(100% 0, 0 0, 100% 100%)",
                 }}
               />
 
-              <div
-                className="font-ui text-xs tracking-widest uppercase px-2 py-1 inline-block mb-4"
+              {/* Badge */}
+              <span
+                className={`psk-badge psk-badge--${edu.badge}`}
                 style={{
-                  border:     `1px solid ${edu.highlight ? 'rgba(212,168,71,0.5)' : 'rgba(184,137,42,0.3)'}`,
-                  color:      edu.highlight ? 'var(--gold)' : 'var(--wine)',
-                  background: edu.highlight ? 'rgba(212,168,71,0.1)' : 'rgba(107,26,42,0.05)',
+                  marginBottom: "20px",
+                  display: "inline-block",
                 }}
               >
                 {edu.status}
-              </div>
+              </span>
 
+              {/* Degree */}
               <h3
-                className="font-display text-xl font-bold mb-1 leading-snug"
-                style={{ color: edu.highlight ? 'var(--cream)' : 'var(--wine)' }}
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize:
+                    "clamp(20px, 2.4vw, 24px)",
+                  fontWeight: 500,
+                  color: "var(--text-primary)",
+                  lineHeight: 1.25,
+                  marginBottom: "10px",
+                }}
               >
                 {edu.degree}
               </h3>
 
-              <div
-                className="font-ui text-sm mb-1"
-                style={{ color: edu.highlight ? 'var(--gold-light)' : 'var(--gold)' }}
+              {/* Institution */}
+              <p
+                style={{
+                  fontSize: "14px",
+                  color: "var(--teal-aqua)",
+                  letterSpacing: "0.02em",
+                  marginBottom: "6px",
+                }}
               >
                 {edu.institution}
-              </div>
+              </p>
 
-              <div
-                className="font-ui text-xs mb-4"
-                style={{ color: edu.highlight ? 'rgba(248,243,236,0.5)' : 'var(--text-light)' }}
+              {/* Meta */}
+              <p
+                style={{
+                  fontSize: "11px",
+                  color: "var(--text-muted)",
+                  letterSpacing: "0.05em",
+                  marginBottom: "22px",
+                  fontFamily: "var(--font-mono)",
+                }}
               >
                 {edu.location} · {edu.period}
-              </div>
+              </p>
 
+              <div
+                style={{
+                  width: "36px",
+                  height: "1px",
+                  background:
+                    "linear-gradient(90deg, var(--teal-aqua), transparent)",
+                  marginBottom: "18px",
+                }}
+              />
+
+              {/* Note */}
               <p
-                className="font-body text-sm leading-relaxed"
-                style={{ color: edu.highlight ? 'rgba(248,243,236,0.7)' : 'var(--text-mid)' }}
+                style={{
+                  fontSize: "14px",
+                  color: "var(--text-secondary)",
+                  lineHeight: 1.75,
+                }}
               >
                 {edu.note}
               </p>
@@ -96,5 +171,5 @@ export default function Education() {
         </div>
       </div>
     </section>
-  )
+  );
 }

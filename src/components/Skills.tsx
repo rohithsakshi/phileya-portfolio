@@ -1,84 +1,138 @@
-'use client'
+"use client";
 
 const skillGroups = [
   {
-    label: 'Clinical & Technical',
-    icon:  '✚',
+    label: "Clinical & Technical",
+    icon: "✚",
     skills: [
-      'Medical Device Troubleshooting',
-      'Ventilator Maintenance',
-      'Defibrillator Calibration',
-      'Patient Monitor Servicing',
-      'Preventive Maintenance',
-      'Equipment Lifecycle Management',
-      'ICU & Emergency Environments',
-      'CSSD Workflows',
-      'Anaesthesia Equipment',
+      "Medical Device Troubleshooting",
+      "Ventilator Maintenance",
+      "Defibrillator Calibration",
+      "Patient Monitor Servicing",
+      "Preventive Maintenance",
+      "Equipment Lifecycle Management",
+      "ICU & Emergency Environments",
+      "CSSD Workflows",
+      "Anaesthesia Equipment",
     ],
   },
   {
-    label: 'Data & Operations',
-    icon:  '◎',
+    label: "Data & Operations",
+    icon: "◎",
     skills: [
-      'SAP (Purchasing Module)',
-      'Clinical Documentation',
-      'Inventory Management',
-      'Service Record Maintenance',
-      'MS Excel',
-      'Data Organisation',
-      'ISO Compliance',
-      'Audit Readiness',
+      "SAP (Purchasing Module)",
+      "Clinical Documentation",
+      "Inventory Management",
+      "Service Record Maintenance",
+      "MS Excel",
+      "Data Organisation",
+      "ISO Compliance",
+      "Audit Readiness",
     ],
   },
   {
-    label: 'Research & Professional',
-    icon:  '⚕',
+    label: "Research & Professional",
+    icon: "⚕",
     skills: [
-      'Biomedical Visualisation',
-      'Patient Safety Systems',
-      'Research Support',
-      'Technical Report Writing',
-      'Cross-functional Collaboration',
-      'Medical Device Procurement',
+      "Biomedical Visualisation",
+      "Patient Safety Systems",
+      "Research Support",
+      "Technical Report Writing",
+      "Cross-functional Collaboration",
+      "Medical Device Procurement",
     ],
   },
-]
+];
 
 const languages = [
-  { lang: 'English',   level: 'Professional',  pct: 95 },
-  { lang: 'German',    level: 'A2 — Learning',  pct: 20 },
-  { lang: 'Hindi',     level: 'Fluent',         pct: 90 },
-  { lang: 'Malayalam', level: 'Native',         pct: 100 },
-]
+  { lang: "Malayalam", level: "Native", pct: 100 },
+  { lang: "English", level: "Professional", pct: 95 },
+  { lang: "Hindi", level: "Fluent", pct: 90 },
+  { lang: "German", level: "A2 — Learning", pct: 20 },
+];
 
 export default function Skills() {
   return (
     <section
       id="skills"
-      className="py-28 px-6 md:px-10"
-      style={{ background: 'var(--cream-warm)' }}
+      className="psk-section psk-section--elevated"
     >
-      <div className="max-w-6xl mx-auto">
-        <p className="section-label mb-4">06 — Skills</p>
-        <h2 className="font-display text-4xl md:text-5xl font-bold text-[var(--wine)] mb-12 leading-tight">
-          Areas of
-          <span className="text-[var(--gold)] italic font-normal"> Expertise</span>
+      <div className="psk-grid-overlay" />
+
+      <div
+        className="psk-container"
+        style={{
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        <div className="psk-section-label">
+          <span>06 — Skills</span>
+        </div>
+
+        <h2 className="psk-section-title">
+          Areas of <strong>Expertise</strong>
         </h2>
 
-        {/* Skill clusters */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-          {skillGroups.map((g) => (
+        <p className="psk-section-subtitle">
+          Technical capability across biomedical systems,
+          clinical operations, and healthcare engineering.
+        </p>
+
+        {/* Skill Clusters */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(300px, 1fr))",
+            gap: "24px",
+            marginBottom: "72px",
+          }}
+        >
+          {skillGroups.map((group) => (
             <div
-              key={g.label}
-              className="p-8 bg-white border border-[rgba(184,137,42,0.2)] hover:border-[rgba(184,137,42,0.45)] transition-colors duration-300"
+              key={group.label}
+              className="psk-card"
+              style={{
+                padding: "30px",
+              }}
             >
-              <div className="text-2xl text-[var(--gold)] mb-3">{g.icon}</div>
-              <h3 className="font-display text-base font-semibold text-[var(--wine)] mb-5">
-                {g.label}
+              <div
+                style={{
+                  fontSize: "22px",
+                  color: "var(--teal-aqua)",
+                  marginBottom: "14px",
+                }}
+              >
+                {group.icon}
+              </div>
+
+              <h3
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "18px",
+                  fontWeight: 500,
+                  color: "var(--text-primary)",
+                  marginBottom: "22px",
+                }}
+              >
+                {group.label}
               </h3>
-              <div className="flex flex-wrap gap-2">
-                {g.skills.map(s => (
-                  <span key={s} className="skill-pill">{s}</span>
+
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "8px",
+                }}
+              >
+                {group.skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="psk-tag"
+                  >
+                    {skill}
+                  </span>
                 ))}
               </div>
             </div>
@@ -87,31 +141,98 @@ export default function Skills() {
 
         {/* Languages */}
         <div>
-          <h3 className="font-ui text-xs tracking-widest uppercase text-[var(--gold)] mb-6">
+          <p
+            style={{
+              fontSize: "9px",
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: "var(--teal-aqua)",
+              fontFamily: "var(--font-mono)",
+              marginBottom: "32px",
+            }}
+          >
             Languages
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {languages.map(l => (
-              <div key={l.lang} className="flex items-center gap-5">
-                <div className="w-28 flex-shrink-0">
-                  <div className="font-display text-sm font-semibold text-[var(--wine)]">
-                    {l.lang}
-                  </div>
-                  <div className="font-ui text-[10px] tracking-wider text-[var(--text-light)] mt-0.5">
-                    {l.level}
-                  </div>
-                </div>
-                <div className="flex-1 h-1 bg-[rgba(184,137,42,0.15)] rounded-full overflow-hidden">
-                  <div
-                    className="h-full rounded-full"
+          </p>
+
+          <div
+            style={{
+              display: "grid",
+              gap: "22px",
+            }}
+          >
+            {languages.map((language) => (
+              <div
+                key={language.lang}
+                className="psk-card"
+                style={{
+                  padding: "22px 24px",
+                  display: "grid",
+                  gridTemplateColumns:
+                    "160px 1fr 50px",
+                  alignItems: "center",
+                  gap: "20px",
+                }}
+              >
+                {/* Label */}
+                <div>
+                  <p
                     style={{
-                      width:      `${l.pct}%`,
-                      background: 'linear-gradient(90deg, var(--wine), var(--gold))',
+                      fontFamily:
+                        "var(--font-display)",
+                      fontSize: "16px",
+                      fontWeight: 500,
+                      color: "var(--text-primary)",
+                      marginBottom: "4px",
+                    }}
+                  >
+                    {language.lang}
+                  </p>
+
+                  <p
+                    style={{
+                      fontSize: "10px",
+                      color: "var(--text-muted)",
+                      letterSpacing: "0.04em",
+                      fontFamily:
+                        "var(--font-mono)",
+                    }}
+                  >
+                    {language.level}
+                  </p>
+                </div>
+
+                {/* Progress Bar */}
+                <div
+                  style={{
+                    height: "4px",
+                    background:
+                      "rgba(175,221,229,0.08)",
+                    borderRadius: "999px",
+                    overflow: "hidden",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: `${language.pct}%`,
+                      height: "100%",
+                      background:
+                        "linear-gradient(90deg, var(--teal-deep), var(--teal-aqua))",
+                      borderRadius: "999px",
                     }}
                   />
                 </div>
-                <span className="font-ui text-xs text-[var(--text-light)] w-8 text-right">
-                  {l.pct}%
+
+                {/* Percentage */}
+                <span
+                  style={{
+                    fontSize: "11px",
+                    color: "var(--text-muted)",
+                    fontFamily:
+                      "var(--font-mono)",
+                    textAlign: "right",
+                  }}
+                >
+                  {language.pct}%
                 </span>
               </div>
             ))}
@@ -119,5 +240,5 @@ export default function Skills() {
         </div>
       </div>
     </section>
-  )
+  );
 }

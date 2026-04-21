@@ -1,106 +1,131 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
-const links = [
-  { href: '#about',       label: 'About'       },
-  { href: '#experience',  label: 'Experience'  },
-  { href: '#projects',    label: 'Projects'    },
-  { href: '#research',    label: 'Research'    },
-  { href: '#skills',      label: 'Skills'      },
-  { href: '#contact',     label: 'Contact'     },
-]
+const navLinks = [
+  { label: "About", href: "#about" },
+  { label: "Research", href: "#research" },
+  { label: "Projects", href: "#projects" },
+  { label: "Contact", href: "#contact" },
+];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+    const handleScroll = () => {
+      setVisible(window.scrollY > 80);
+    };
+
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const scrollToTop = (
+    e: React.MouseEvent<HTMLAnchorElement>
+  ) => {
+    e.preventDefault();
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   return (
-    <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
-      style={{
-        background: scrolled
-          ? 'rgba(46, 9, 16, 0.97)'
-          : 'transparent',
-        backdropFilter: scrolled ? 'blur(12px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(184,137,42,0.2)' : 'none',
-      }}
-    >
-      <nav className="max-w-6xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <a
-          href="#"
-          className="font-display text-sm font-semibold tracking-widest text-[#D4A847] uppercase"
+    <AnimatePresence>
+      {visible && (
+        <motion.nav
+          initial={{
+            opacity: 0,
+            y: -24,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          exit={{
+            opacity: 0,
+            y: -24,
+          }}
+          transition={{
+            duration: 0.55,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="fixed top-0 left-0 right-0 z-50"
+          style={{
+            background: "rgba(0, 49, 53, 0.72)",
+            backdropFilter: "blur(22px) saturate(1.5)",
+            WebkitBackdropFilter: "blur(22px) saturate(1.5)",
+            borderBottom:
+              "0.5px solid rgba(175, 221, 229, 0.08)",
+          }}
         >
-          PSK
-        </a>
-
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-8">
-          {links.map(l => (
-            <a key={l.href} href={l.href} className="nav-link">
-              {l.label}
-            </a>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <a
-          href="mailto:phileyakoruth10@gmail.com"
-          className="hidden md:inline-flex items-center gap-2 px-4 py-1.5 border border-[rgba(184,137,42,0.5)] text-[#D4A847] font-ui text-xs tracking-widest uppercase hover:bg-[#6B1A2A] hover:border-[#6B1A2A] transition-all duration-300"
-        >
-          Hire Me
-        </a>
-
-        {/* Mobile hamburger */}
-        <button
-          className="md:hidden text-[#D4A847] flex flex-col gap-1.5 p-1"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span
-            className="block w-5 h-px bg-current transition-all duration-300"
-            style={{ transform: menuOpen ? 'rotate(45deg) translate(2px, 2px)' : '' }}
-          />
-          <span
-            className="block w-5 h-px bg-current transition-all duration-300"
-            style={{ opacity: menuOpen ? 0 : 1 }}
-          />
-          <span
-            className="block w-5 h-px bg-current transition-all duration-300"
-            style={{ transform: menuOpen ? 'rotate(-45deg) translate(2px, -2px)' : '' }}
-          />
-        </button>
-      </nav>
-
-      {/* Mobile menu */}
-      <div
-        className="md:hidden overflow-hidden transition-all duration-500"
-        style={{
-          maxHeight: menuOpen ? '400px' : '0',
-          background: 'rgba(46, 9, 16, 0.98)',
-          borderTop: menuOpen ? '1px solid rgba(184,137,42,0.2)' : 'none',
-        }}
-      >
-        <div className="px-6 py-4 flex flex-col gap-4">
-          {links.map(l => (
+          <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 h-[72px] flex items-center justify-between">
+            {/* LEFT — Avatar Logo */}
             <a
-              key={l.href}
-              href={l.href}
-              className="nav-link text-base"
-              onClick={() => setMenuOpen(false)}
+              href="#hero"
+              onClick={scrollToTop}
+              className="relative flex items-center group"
             >
-              {l.label}
+              <div
+                className="relative rounded-full overflow-hidden"
+                style={{
+                  width: "42px",
+                  height: "42px",
+                  border:
+                    "1.5px solid rgba(15, 164, 175, 0.35)",
+                  boxShadow:
+                    "0 0 0 4px rgba(15, 164, 175, 0.06)",
+                }}
+              >
+                <Image
+                  src="/phileya-profile.jpg"
+                  alt="Phileya Susan Koruth"
+                  fill
+                  className="object-cover object-top"
+                  sizes="42px"
+                />
+              </div>
             </a>
-          ))}
-        </div>
-      </div>
-    </header>
-  )
+
+            {/* RIGHT — Nav Links */}
+            <div className="flex items-center gap-5 md:gap-8">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="text-[13px] tracking-[0.04em] font-normal text-[rgba(175,221,229,0.55)] hover:text-[#AFDDE5] transition-colors duration-300"
+                >
+                  {link.label}
+                </a>
+              ))}
+
+              {/* CV Button */}
+              <a
+                href="/Phileya_Susan_Koruth_CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-2 rounded-full border text-[11px] font-medium tracking-[0.08em] uppercase transition-all duration-300 hover:bg-[rgba(15,164,175,0.10)]"
+                style={{
+                  border:
+                    "0.5px solid rgba(15, 164, 175, 0.35)",
+                  color: "#0FA4AF",
+                }}
+              >
+                CV
+              </a>
+            </div>
+          </div>
+        </motion.nav>
+      )}
+    </AnimatePresence>
+  );
 }

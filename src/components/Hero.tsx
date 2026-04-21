@@ -1,183 +1,391 @@
-'use client'
+"use client";
 
-import { useEffect, useRef } from 'react'
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import ParticleField from "@/components/ui/ParticleField";
+import LanyardCard from "@/components/ui/LanyardCard";
+
+const stagger = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 28 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
 export default function Hero() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const sectionRef = useRef<HTMLElement>(null);
 
-  /* subtle animated heartbeat-like particle field */
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
 
-    let raf: number
-    const resize = () => {
-      canvas.width  = canvas.offsetWidth
-      canvas.height = canvas.offsetHeight
-    }
-    resize()
-    window.addEventListener('resize', resize)
-
-    const particles: { x: number; y: number; r: number; speed: number; angle: number; alpha: number }[] = []
-    for (let i = 0; i < 60; i++) {
-      particles.push({
-        x:     Math.random() * canvas.width,
-        y:     Math.random() * canvas.height,
-        r:     Math.random() * 1.5 + 0.3,
-        speed: Math.random() * 0.3 + 0.05,
-        angle: Math.random() * Math.PI * 2,
-        alpha: Math.random() * 0.4 + 0.1,
-      })
-    }
-
-    let t = 0
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      t += 0.008
-      particles.forEach(p => {
-        p.x += Math.cos(p.angle) * p.speed
-        p.y += Math.sin(p.angle) * p.speed + Math.sin(t) * 0.08
-        if (p.x < 0) p.x = canvas.width
-        if (p.x > canvas.width) p.x = 0
-        if (p.y < 0) p.y = canvas.height
-        if (p.y > canvas.height) p.y = 0
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(212, 168, 71, ${p.alpha})`
-        ctx.fill()
-      })
-      raf = requestAnimationFrame(draw)
-    }
-    draw()
-    return () => {
-      window.removeEventListener('resize', resize)
-      cancelAnimationFrame(raf)
-    }
-  }, [])
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 60]);
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
   return (
     <section
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
+      ref={sectionRef}
+      id="hero"
       style={{
-        background: `
-          radial-gradient(ellipse at 20% 80%, rgba(107, 26, 42, 0.9) 0%, transparent 60%),
-          radial-gradient(ellipse at 80% 20%, rgba(74, 15, 28, 0.8) 0%, transparent 60%),
-          linear-gradient(160deg, #2E0910 0%, #4A0F1C 40%, #6B1A2A 70%, #3A0E18 100%)
-        `,
+        position: "relative",
+        width: "100%",
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        overflow: "hidden",
+        background:
+          "radial-gradient(ellipse 120% 80% at 60% 40%, #003135 0%, #001a1d 42%, #000d0f 100%)",
       }}
     >
-      {/* Canvas particles */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full opacity-60 pointer-events-none"
+      {/* Background Particles */}
+      <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+        <ParticleField className="w-full h-full" />
+      </div>
+
+      {/* Soft Grid Overlay */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
+          opacity: 0.025,
+          backgroundImage:
+            "linear-gradient(rgba(175,221,229,1) 1px, transparent 1px), linear-gradient(90deg, rgba(175,221,229,1) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+        }}
       />
 
-      {/* Decorative cross / medical symbol top right */}
+      {/* Vignette */}
       <div
-        className="absolute top-24 right-12 opacity-10 hidden lg:block pointer-events-none select-none"
-        style={{ color: '#D4A847', fontSize: '7rem', lineHeight: 1 }}
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
+          background:
+            "radial-gradient(ellipse 70% 80% at 50% 50%, transparent 30%, rgba(0,13,15,0.72) 100%)",
+        }}
+      />
+
+      {/* Main Content */}
+      <motion.div
+        style={{
+          y: contentY,
+          opacity,
+          position: "relative",
+          zIndex: 10,
+          width: "100%",
+          maxWidth: "1280px",
+          margin: "0 auto",
+          padding: "0 64px",
+          boxSizing: "border-box" as const,
+        }}
       >
-        ✚
-      </div>
-
-      {/* Corner accents */}
-      <div className="absolute top-20 left-8 w-16 h-16 border-t border-l border-[rgba(212,168,71,0.3)] pointer-events-none" />
-      <div className="absolute bottom-20 right-8 w-16 h-16 border-b border-r border-[rgba(212,168,71,0.3)] pointer-events-none" />
-
-      {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-        <p
-          className="section-label text-[#D4A847] mb-6 animate-fade-up opacity-0"
-          style={{ animationFillMode: 'forwards' }}
-        >
-          Biomedical Engineer · Clinical Technology · Patient Safety
-        </p>
-
-        <h1
-          className="font-display text-5xl sm:text-7xl md:text-8xl font-bold text-[#F8F3EC] leading-[1.05] mb-6 animate-fade-up opacity-0 delay-1"
-          style={{ animationFillMode: 'forwards' }}
-        >
-          Phileya
-          <br />
-          <span
-            className="font-normal italic"
-            style={{ color: '#D4A847' }}
-          >
-            Susan Koruth
-          </span>
-        </h1>
-
         <div
-          className="animate-fade-up opacity-0 delay-2"
-          style={{ animationFillMode: 'forwards' }}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            alignItems: "center",
+            gap: "48px",
+            minHeight: "100vh",
+            paddingTop: "80px",
+            paddingBottom: "80px",
+            boxSizing: "border-box" as const,
+          }}
         >
-          <div className="ornament my-6 max-w-sm mx-auto">
-            <span className="font-ui text-xs tracking-widest text-[rgba(212,168,71,0.7)] whitespace-nowrap">
-              M.Sc. Biomedical Engineering
-            </span>
-          </div>
-        </div>
-
-        <p
-          className="font-body text-lg sm:text-xl text-[rgba(248,243,236,0.75)] max-w-xl mx-auto leading-relaxed mb-10 animate-fade-up opacity-0 delay-3"
-          style={{ animationFillMode: 'forwards' }}
-        >
-          Clinical engineer focused on critical care technology, medical device safety,
-          and the engineering layer beneath hospital operations.
-          <br />
-          <span className="text-[rgba(212,168,71,0.9)] font-medium">Heidelberg University, Germany.</span>
-        </p>
-
-        <div
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up opacity-0 delay-4"
-          style={{ animationFillMode: 'forwards' }}
-        >
-          <a
-            href="#experience"
-            className="px-8 py-3 font-ui text-sm tracking-widest uppercase text-[#F8F3EC] border border-[rgba(212,168,71,0.6)] hover:bg-[#D4A847] hover:border-[#D4A847] hover:text-[#2E0910] transition-all duration-300"
+          {/* LEFT SIDE */}
+          <motion.div
+            variants={stagger}
+            initial="hidden"
+            animate="show"
+            style={{
+              display: "flex",
+              flexDirection: "column" as const,
+              justifyContent: "center",
+            }}
           >
-            View Experience
-          </a>
-          <a
-            href="#contact"
-            className="px-8 py-3 font-ui text-sm tracking-widest uppercase text-[#D4A847] hover:text-[#F8F3EC] transition-colors duration-300"
-          >
-            Get In Touch →
-          </a>
-        </div>
+            {/* Eyebrow */}
+            <motion.div
+              variants={fadeUp}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "12px",
+                marginBottom: "28px",
+              }}
+            >
+              <div
+                style={{
+                  width: "34px",
+                  height: "1px",
+                  background: "linear-gradient(90deg, transparent, #0FA4AF)",
+                  flexShrink: 0,
+                }}
+              />
+              <span
+                style={{
+                  fontSize: "11px",
+                  letterSpacing: "0.22em",
+                  color: "#0FA4AF",
+                  textTransform: "uppercase" as const,
+                  fontFamily: "var(--font-mono, monospace)",
+                  whiteSpace: "nowrap" as const,
+                }}
+              >
+                Biomedical Engineer
+              </span>
+            </motion.div>
 
-        {/* Stats row */}
-        <div
-          className="mt-16 grid grid-cols-3 gap-8 max-w-md mx-auto border-t border-[rgba(212,168,71,0.2)] pt-10 animate-fade-up opacity-0 delay-5"
-          style={{ animationFillMode: 'forwards' }}
-        >
-          {[
-            { value: '91%', label: 'B.Tech Grade' },
-            { value: '3',   label: 'Clinical Roles' },
-            { value: '2',   label: 'Countries' },
-          ].map(stat => (
-            <div key={stat.label} className="text-center">
-              <div className="font-display text-3xl font-bold text-[#D4A847]">
-                {stat.value}
+            {/* Name */}
+            <motion.h1 variants={fadeUp} style={{ margin: "0 0 12px" }}>
+              <span
+                style={{
+                  display: "block",
+                  fontSize: "clamp(40px, 5.5vw, 72px)",
+                  fontWeight: 300,
+                  color: "#AFDDE5",
+                  lineHeight: 1.02,
+                  letterSpacing: "-0.025em",
+                  fontFamily: "'Cormorant Garamond', Georgia, serif",
+                }}
+              >
+                Phileya Susan
+              </span>
+              <span
+                style={{
+                  display: "block",
+                  fontSize: "clamp(40px, 5.5vw, 72px)",
+                  fontWeight: 600,
+                  color: "#AFDDE5",
+                  lineHeight: 1.02,
+                  letterSpacing: "-0.03em",
+                  fontFamily: "'Cormorant Garamond', Georgia, serif",
+                }}
+              >
+                Koruth
+              </span>
+            </motion.h1>
+
+            {/* Divider */}
+            <motion.div variants={fadeUp} style={{ marginBottom: "24px" }}>
+              <div
+                style={{
+                  width: "56px",
+                  height: "1.5px",
+                  background:
+                    "linear-gradient(90deg, #0FA4AF, rgba(15,164,175,0.15))",
+                }}
+              />
+            </motion.div>
+
+            {/* Description */}
+            <motion.p
+              variants={fadeUp}
+              style={{
+                fontSize: "clamp(15px, 1.6vw, 18px)",
+                color: "rgba(175,221,229,0.58)",
+                fontWeight: 300,
+                lineHeight: 1.75,
+                maxWidth: "480px",
+                letterSpacing: "0.01em",
+                marginBottom: "28px",
+              }}
+            >
+              M.Sc. Biomedical Engineering candidate at{" "}
+              <span style={{ color: "rgba(175,221,229,0.86)" }}>
+                Heidelberg University
+              </span>
+              . Bridging precision engineering with life sciences — from medical
+              imaging to neural interfaces.
+            </motion.p>
+
+            {/* Tags */}
+            <motion.div
+              variants={fadeUp}
+              style={{
+                display: "flex",
+                flexWrap: "wrap" as const,
+                gap: "8px",
+                marginBottom: "36px",
+              }}
+            >
+              {[
+                "Neural Engineering",
+                "Medical Imaging",
+                "Biomechanics",
+                "Signal Processing",
+              ].map((tag) => (
+                <span
+                  key={tag}
+                  style={{
+                    fontSize: "11px",
+                    letterSpacing: "0.08em",
+                    color: "rgba(175,221,229,0.5)",
+                    border: "0.5px solid rgba(175,221,229,0.12)",
+                    padding: "6px 14px",
+                    borderRadius: "999px",
+                    background: "rgba(15,74,79,0.28)",
+                    whiteSpace: "nowrap" as const,
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </motion.div>
+
+            {/* CTA Buttons */}
+            <motion.div
+              variants={fadeUp}
+              style={{
+                display: "flex",
+                flexWrap: "wrap" as const,
+                alignItems: "center",
+                gap: "16px",
+                marginBottom: "48px",
+              }}
+            >
+              <a
+                href="#projects"
+                style={{
+                  display: "inline-block",
+                  padding: "13px 32px",
+                  borderRadius: "999px",
+                  background:
+                    "linear-gradient(135deg, #0FA4AF 0%, #0F4A4F 100%)",
+                  fontSize: "12px",
+                  letterSpacing: "0.08em",
+                  color: "#AFDDE5",
+                  textTransform: "uppercase" as const,
+                  fontWeight: 500,
+                  boxShadow: "0 10px 32px rgba(15,164,175,0.18)",
+                  transition: "all 0.3s ease",
+                  textDecoration: "none",
+                }}
+              >
+                View Work
+              </a>
+
+              <a
+                href="#contact"
+                style={{
+                  display: "inline-block",
+                  padding: "13px 32px",
+                  borderRadius: "999px",
+                  border: "0.5px solid rgba(175,221,229,0.2)",
+                  fontSize: "12px",
+                  letterSpacing: "0.08em",
+                  color: "rgba(175,221,229,0.62)",
+                  textTransform: "uppercase" as const,
+                  fontWeight: 400,
+                  transition: "all 0.3s ease",
+                  textDecoration: "none",
+                }}
+              >
+                Get in Touch
+              </a>
+            </motion.div>
+
+            {/* Scroll Indicator */}
+            <motion.div
+              variants={fadeUp}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+              }}
+              animate={{ y: [0, 6, 0] }}
+              transition={{
+                repeat: Infinity,
+                duration: 2.4,
+                ease: "easeInOut",
+              }}
+            >
+              <div
+                style={{
+                  width: "20px",
+                  height: "32px",
+                  border: "0.5px solid rgba(175,221,229,0.22)",
+                  borderRadius: "10px",
+                  display: "flex",
+                  justifyContent: "center",
+                  paddingTop: "6px",
+                  flexShrink: 0,
+                }}
+              >
+                <div
+                  style={{
+                    width: "3px",
+                    height: "6px",
+                    borderRadius: "2px",
+                    background: "rgba(15,164,175,0.65)",
+                  }}
+                />
               </div>
-              <div className="font-ui text-xs tracking-widest uppercase text-[rgba(248,243,236,0.5)] mt-1">
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+              <span
+                style={{
+                  fontSize: "10px",
+                  letterSpacing: "0.15em",
+                  color: "rgba(175,221,229,0.25)",
+                  textTransform: "uppercase" as const,
+                }}
+              >
+                Scroll
+              </span>
+            </motion.div>
+          </motion.div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
-        <span className="font-ui text-[10px] tracking-widest uppercase text-[#D4A847]">Scroll</span>
-        <div
-          className="w-px h-8 bg-gradient-to-b from-[#D4A847] to-transparent"
-          style={{ animation: 'pulse 2s ease-in-out infinite' }}
-        />
-      </div>
+          {/* RIGHT SIDE — Lanyard Card */}
+          <motion.div
+            initial={{ opacity: 0, x: 40, scale: 0.96 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{
+              duration: 1.2,
+              delay: 0.45,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+            }}
+          >
+            <LanyardCard
+              imageSrc="/phileya-profile.jpg"
+              name="Phileya Susan Koruth"
+              title="M.Sc. Biomedical Engineering"
+              institution="Heidelberg University"
+            />
+          </motion.div>
+        </div>
+      </motion.div>
+
+      {/* Bottom Fade */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: "120px",
+          zIndex: 10,
+          background:
+            "linear-gradient(to bottom, transparent, rgba(0,13,15,0.85))",
+          pointerEvents: "none",
+        }}
+      />
     </section>
-  )
+  );
 }
