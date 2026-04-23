@@ -60,7 +60,7 @@ export default function Hero({ isActive = true }: { isActive?: boolean }) {
           }}
         />
       )}
-      
+
       <div className="hero-container relative z-10">
         {/* LEFT COLUMN */}
         <div className="hero-left-pane">
@@ -70,8 +70,7 @@ export default function Hero({ isActive = true }: { isActive?: boolean }) {
             transition={{ duration: 0.6 }}
             className="hero-eyebrow"
           >
-            BIOMEDICAL PORTFOLIO
-          </motion.div>
+            BUILDING THE FUTURE OF HEALTHCARE          </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, scale: 0.98 }}
@@ -82,7 +81,7 @@ export default function Hero({ isActive = true }: { isActive?: boolean }) {
             Phileya Susan Koruth.
           </motion.h1>
 
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.3, duration: 0.6 }}

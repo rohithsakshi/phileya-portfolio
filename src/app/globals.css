@@ -21,6 +21,24 @@ body {
   color: var(--cream);
   font-family: 'DM Sans', sans-serif;
   overflow: hidden;
+  touch-action: none; /* Let JS handle the swipes for section snapping */
+}
+
+@media (max-width: 768px) {
+  body {
+    touch-action: pan-y; /* Allow some native feel if needed, or keep none for strict snap */
+  }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--rosewood);
+  border-radius: 10px;
 }
 
 h1,

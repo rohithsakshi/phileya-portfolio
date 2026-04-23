@@ -43,6 +43,8 @@ export default function Home() {
     if (index > 0) goToSection(index - 1);
   }, [index, goToSection]);
 
+  const touchStart = useRef<number | null>(null);
+
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       if (isScrolling.current) return;
@@ -50,6 +52,22 @@ export default function Home() {
         if (e.deltaY > 0) nextSection();
         else prevSection();
       }
+    };
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStart.current = e.touches[0].clientY;
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (touchStart.current === null || isScrolling.current) return;
+      const touchEnd = e.changedTouches[0].clientY;
+      const delta = touchStart.current - touchEnd;
+
+      if (Math.abs(delta) > 50) { // Swipe threshold
+        if (delta > 0) nextSection();
+        else prevSection();
+      }
+      touchStart.current = null;
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -65,10 +83,15 @@ export default function Home() {
     };
 
     window.addEventListener('wheel', handleWheel);
+    window.addEventListener('touchstart', handleTouchStart);
+    window.addEventListener('touchend', handleTouchEnd);
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('nav-to-section', handleNavRequest);
+
     return () => {
       window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', handleTouchEnd);
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('nav-to-section', handleNavRequest);
     };
@@ -130,12 +153,13 @@ export default function Home() {
           initial="enter"
           animate="center"
           exit="exit"
-          className="absolute inset-0 w-full h-full"
+          className="absolute inset-0 w-full h-full overflow-y-auto overflow-x-hidden custom-scrollbar"
           style={{
             transformStyle: 'preserve-3d',
             perspective: '2000px',
             transformOrigin: direction > 0 ? 'left center' : 'right center',
-            zIndex: 10 // Ensure it's below the label and navbar
+            zIndex: 10,
+            WebkitOverflowScrolling: 'touch'
           }}
         >
           <CurrentComponent isActive={true} />
