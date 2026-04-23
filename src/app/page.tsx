@@ -43,9 +43,31 @@ export default function Home() {
     if (index > 0) goToSection(index - 1);
   }, [index, goToSection]);
 
+  const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const touchStart = useRef<number | null>(null);
 
   useEffect(() => {
+    setMounted(true);
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) {
+      const handleNavRequestMobile = (e: any) => {
+        const targetId = e.detail;
+        const el = document.getElementById(targetId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      };
+      window.addEventListener('nav-to-section', handleNavRequestMobile);
+      return () => window.removeEventListener('nav-to-section', handleNavRequestMobile);
+    }
+
     const handleWheel = (e: WheelEvent) => {
       if (isScrolling.current) return;
       if (Math.abs(e.deltaY) > 30) {
@@ -63,7 +85,7 @@ export default function Home() {
       const touchEnd = e.changedTouches[0].clientY;
       const delta = touchStart.current - touchEnd;
 
-      if (Math.abs(delta) > 50) { // Swipe threshold
+      if (Math.abs(delta) > 50) { 
         if (delta > 0) nextSection();
         else prevSection();
       }
@@ -82,9 +104,9 @@ export default function Home() {
       if (targetIdx !== -1) goToSection(targetIdx);
     };
 
-    window.addEventListener('wheel', handleWheel);
-    window.addEventListener('touchstart', handleTouchStart);
-    window.addEventListener('touchend', handleTouchEnd);
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('touchstart', handleTouchStart, { passive: false });
+    window.addEventListener('touchend', handleTouchEnd, { passive: false });
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('nav-to-section', handleNavRequest);
 
@@ -95,7 +117,7 @@ export default function Home() {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('nav-to-section', handleNavRequest);
     };
-  }, [nextSection, prevSection, goToSection]);
+  }, [nextSection, prevSection, goToSection, isMobile]);
 
   const variants = {
     enter: (direction: number) => ({
@@ -125,11 +147,28 @@ export default function Home() {
 
   const CurrentComponent = SECTIONS[index].component;
 
+  if (!mounted) return <div className="min-h-screen bg-[var(--bg)]" />;
+
+  if (isMobile) {
+    return (
+      <main className="main-container bg-[var(--bg)] min-h-screen w-full overflow-x-hidden">
+        <CustomCursor />
+        <Navbar />
+        <div className="flex flex-col w-full">
+          {SECTIONS.map((Section) => (
+            <div key={Section.id} id={Section.id}>
+              <Section.component isActive={true} />
+            </div>
+          ))}
+        </div>
+      </main>
+    );
+  }
+
   return (
-    <main className="main-container overflow-hidden bg-[var(--bg)]">
+    <main className="main-container overflow-hidden bg-[var(--bg)] w-full h-screen relative">
       <CustomCursor />
       <Navbar />
-
 
       <AnimatePresence initial={false} custom={direction} mode="popLayout">
         <motion.div
@@ -144,8 +183,7 @@ export default function Home() {
             transformStyle: 'preserve-3d',
             perspective: '2000px',
             transformOrigin: direction > 0 ? 'left center' : 'right center',
-            zIndex: 10,
-            WebkitOverflowScrolling: 'touch'
+            zIndex: 10
           }}
         >
           {(() => {
