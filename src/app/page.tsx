@@ -148,7 +148,10 @@ export default function Home() {
             WebkitOverflowScrolling: 'touch'
           }}
         >
-          <CurrentComponent isActive={true} />
+          {(() => {
+            const CurrentComponent = SECTIONS[index].component as React.FC<{ isActive?: boolean }>;
+            return <CurrentComponent isActive={true} />;
+          })()}
         </motion.div>
       </AnimatePresence>
 

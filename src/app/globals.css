@@ -21,21 +21,25 @@ body {
   color: var(--cream);
   font-family: 'DM Sans', sans-serif;
   overflow: hidden;
-  touch-action: none; /* Let JS handle the swipes for section snapping */
+  touch-action: none;
+  /* Let JS handle the swipes for section snapping */
 }
 
 @media (max-width: 768px) {
   body {
-    touch-action: pan-y; /* Allow some native feel if needed, or keep none for strict snap */
+    touch-action: pan-y;
+    /* Allow some native feel if needed, or keep none for strict snap */
   }
 }
 
 .custom-scrollbar::-webkit-scrollbar {
   width: 4px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: var(--rosewood);
   border-radius: 10px;
@@ -431,7 +435,8 @@ h4,
     padding: 0 6vw;
     display: flex;
     justify-content: space-between;
-    grid-template-columns: none; /* Disable grid on mobile */
+    grid-template-columns: none;
+    /* Disable grid on mobile */
   }
 
   .nav-identity {
@@ -449,7 +454,8 @@ h4,
   }
 
   .navbar-pill {
-    display: none; /* Hide complex pill navigation on mobile for cleanliness */
+    display: none;
+    /* Hide complex pill navigation on mobile for cleanliness */
   }
 
   .nav-pill-btn {
@@ -481,7 +487,8 @@ h4,
   }
 
   .hero-right-pane {
-    order: -1; /* Image frame first on mobile */
+    order: -1;
+    /* Image frame first on mobile */
     width: 100%;
     margin-bottom: 20px;
   }
@@ -521,7 +528,8 @@ h4,
     align-items: center;
   }
 
-  .btn-work, .btn-opps {
+  .btn-work,
+  .btn-opps {
     width: 100%;
     max-width: 280px;
     padding: 12px 24px;
@@ -557,135 +565,296 @@ h4,
   text-transform: uppercase;
 }
 
-/* ABOUT SECTION */
-.about-container {
+/* COMPACT THEME-MATCHED SKILLS GRID */
+.skills-section {
+  min-height: 100vh;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6vw;
-  padding: 0 7vw;
+  padding: 80px 7vw;
+  position: relative;
+  background-color: var(--bg);
+}
+
+.skills-container {
+  max-width: 1200px;
   width: 100%;
-  max-width: 1400px;
   margin: 0 auto;
 }
 
-.about-left {
-  flex: 1;
-  max-width: 520px;
-  display: flex;
-  flex-direction: column;
+.skills-header {
+  margin-bottom: 30px; /* Reduced from 50px */
+  text-align: left;
 }
 
-.about-right {
-  flex: 0.8;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-}
-
-.about-label {
-  font-size: 12px;
+.skills-label {
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.15em;
   color: var(--rosewood);
   text-transform: uppercase;
-  margin-bottom: 24px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.skills-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 2.8rem); /* Slightly smaller heading */
+  color: var(--cream);
+  line-height: 1.1;
+}
+
+.skills-grid-minimal {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Switched to 4 columns */
+  gap: 16px;
+  width: 100%;
+}
+
+.skill-card-minimal {
+  background: var(--surface); /* Changed from #242424 to theme surface */
+  border: 1px solid rgba(122, 73, 84, 0.2);
+  border-radius: 12px;
+  padding: 20px; /* Reduced from 28px */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.skill-card-minimal:hover {
+  border-color: var(--rosewood);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.skill-icon-box {
+  width: 38px;
+  height: 38px;
+  background: var(--bg); /* Theme bg for icon boxes */
+  border: 1px solid rgba(122, 73, 84, 0.15);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+}
+
+.skill-name-minimal {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+
+.skill-desc-minimal {
+  font-size: 11.5px; /* Smaller description */
+  color: var(--cream-muted);
+  line-height: 1.5;
+  margin-bottom: 16px;
+  flex-grow: 1;
+}
+
+.skill-tags-minimal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.skill-tag-minimal {
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--rose-light);
+  background: rgba(122, 73, 84, 0.1);
+  border: 1px solid rgba(122, 73, 84, 0.2);
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1100px) {
+  .skills-grid-minimal {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .skills-grid-minimal {
+    grid-template-columns: 1fr;
+  }
+  
+  .skills-section {
+    padding-top: 100px;
+  }
+  
+  .skills-heading {
+    font-size: 2.2rem;
+  }
+}
+
+/* ABOUT SECTION */
+.about-container {
+  display: flex;
+  flex-direction: column;
+  padding: 100px 8vw 60px 6vw; /* Reduced top padding from 140px to 100px */
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.about-side-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  color: var(--cream); /* Changed from rosewood to smokewhite/cream */
+  text-transform: uppercase;
+  opacity: 0.8; /* Increased opacity for better visibility in cream */
+  margin-bottom: 35px; /* Reduced from 50px to pull content up */
+  /* Spacing below label, above heading */
+}
+
+.about-content-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 6vw;
+  width: 100%;
+}
+
+.about-main-story {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-side-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .about-heading {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-size: clamp(2.5rem, 5vw, 4rem);
   color: var(--cream);
-  line-height: 1.1;
-  margin: 0 0 28px 0;
+  line-height: 1.05;
+  margin: 0 0 40px 0;
+  max-width: 600px;
 }
 
 .about-para {
   font-size: 1rem;
-  line-height: 1.75;
+  line-height: 1.7;
   color: var(--cream-muted);
-  margin-bottom: 20px;
-}
-
-.about-divider {
-  width: 48px;
-  height: 1px;
-  background: var(--rosewood);
-  margin: 28px 0;
-}
-
-.about-contact-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.contact-pill {
-  border: 1px solid var(--rosewood);
-  border-radius: 999px;
-  padding: 8px 18px;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  color: var(--cream);
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-}
-
-.contact-pill:hover {
-  background: var(--rosewood);
-  color: var(--cream);
+  margin-bottom: 24px;
+  max-width: 540px;
 }
 
 .stat-card-stack {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
   width: 100%;
 }
 
 .stat-card {
-  background: var(--surface);
-  border: 1px solid rgba(245, 239, 218, 0.08);
-  border-radius: 16px;
-  padding: 24px 28px;
-  transition: all 0.3s ease;
+  background: rgba(44, 26, 30, 0.4);
+  border: 1px solid rgba(245, 239, 218, 0.05);
+  border-radius: 12px;
+  padding: 16px 36px 32px 36px;
+  /* Reduced top padding */
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .stat-card:hover {
-  box-shadow: 0 8px 32px var(--rose-glow);
-  transform: translateY(-4px);
+  background: rgba(44, 26, 30, 0.6);
+  border-color: var(--rosewood);
+  transform: translateX(5px);
+}
+
+.stat-card:hover .stat-card-num {
+  color: var(--cream);
+  text-shadow: 0 0 20px var(--rose-glow);
 }
 
 .stat-card-num {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 3rem;
+  font-size: 3.5rem;
   color: var(--rosewood);
   line-height: 1;
+  margin-bottom: 8px;
 }
 
 .stat-card-text {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--cream-muted);
-  margin-top: 6px;
   line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+.about-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 28px;
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+.contact-pill {
+  border: 1px solid rgba(122, 73, 84, 0.45);
+  border-radius: 999px;
+  padding: 14px 22px;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  color: var(--cream-muted);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.about-contact-row .contact-pill:first-child {
+  flex: 1.6;
+}
+
+.about-contact-row .contact-pill:nth-child(2),
+.about-contact-row .contact-pill:nth-child(3) {
+  flex: 1;
+}
+
+.contact-pill:hover {
+  border-color: var(--rosewood);
+  color: var(--cream);
+  background: rgba(122, 73, 84, 0.1);
+}
+
+@media (max-width: 1100px) {
+  .about-container {
+    grid-template-columns: 1fr 1fr;
+    padding-top: 120px;
+  }
+
+  .about-side-label {
+    grid-column: span 2;
+    margin-bottom: 20px;
+  }
 }
 
 @media (max-width: 768px) {
   .about-container {
+    display: flex;
     flex-direction: column;
-    padding: 100px 7vw;
+    padding: 100px 7vw 60px 7vw;
     gap: 40px;
-    height: auto;
-    min-height: 100vh;
   }
 
-  .about-left, .about-right {
-    max-width: 100%;
+  .about-main-story,
+  .about-side-stats {
     width: 100%;
-    flex: none;
   }
 
   .stat-card-stack {
@@ -693,18 +862,19 @@ h4,
     overflow-x: auto;
     padding-bottom: 20px;
     scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-
-  .stat-card-stack::-webkit-scrollbar {
-    display: none;
+    gap: 16px;
   }
 
   .stat-card {
-    min-width: 240px;
+    min-width: 280px;
     scroll-snap-align: start;
   }
+
+  .about-contact-row {
+    justify-content: center;
+  }
 }
+
 .hero-tags {
   display: flex;
   flex-wrap: wrap;
@@ -723,3 +893,324 @@ h4,
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
+/* --- MOBILE ADAPTIVE REFINEMENTS --- */
+
+@media (max-width: 1024px) {
+  .hero-container {
+    padding: 100px 5vw 40px !important;
+    gap: 40px !important;
+  }
+  
+  .hero-name-text { font-size: 3.5rem !important; }
+  .hero-role-line { font-size: 1.5rem !important; }
+  
+  .about-content-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* GLOBAL SECTION HEIGHT */
+  .section-wrapper, 
+  .hero-container, 
+  .about-container, 
+  .skills-section-final {
+    min-height: auto !important;
+    height: auto !important;
+    padding-top: 80px !important;
+    padding-bottom: 80px !important;
+  }
+
+  /* NAVBAR MOBILE */
+  .navbar-wrapper {
+    padding: 15px 5vw !important;
+  }
+  
+  .nav-name, .nav-pill-btn {
+    display: none !important;
+  }
+  
+  .navbar-pill {
+    padding: 6px 16px !important;
+    gap: 12px !important;
+    margin: 0 auto !important;
+  }
+  
+  .nav-links-center {
+    gap: 12px !important;
+  }
+  
+  .nav-link {
+    font-size: 11px !important;
+    letter-spacing: 0.05em !important;
+  }
+
+  /* HERO MOBILE */
+  .hero-container {
+    flex-direction: column-reverse !important; /* Image on top */
+    align-items: center !important;
+    text-align: center !important;
+    padding-top: 100px !important;
+  }
+  
+  .hero-left-pane {
+    max-width: 100% !important;
+    align-items: center !important;
+  }
+  
+  .hero-name-text {
+    font-size: 2.5rem !important;
+    line-height: 1.1 !important;
+    margin-bottom: 10px !important;
+  }
+  
+  .hero-role-line {
+    font-size: 1.2rem !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .hero-bio {
+    font-size: 0.95rem !important;
+    margin-bottom: 30px !important;
+    text-align: center !important;
+  }
+  
+  .hero-right-pane {
+    width: 100% !important;
+    max-width: 260px !important;
+    margin-bottom: 30px !important;
+    padding: 0 !important;
+  }
+  
+  .profile-frame {
+    aspect-ratio: 1/1 !important;
+    height: auto !important;
+    width: 100% !important;
+  }
+  
+  .hero-stats-bar {
+    justify-content: center !important;
+    font-size: 9px !important;
+    width: 100% !important;
+    margin-top: 20px !important;
+  }
+
+  .hero-btns {
+    width: 100% !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    align-items: center !important;
+  }
+  
+  .btn-work, .btn-opps {
+    width: 100% !important;
+    max-width: 320px !important;
+    justify-content: center !important;
+  }
+
+  /* ABOUT MOBILE */
+  .about-container {
+    padding: 80px 7vw 40px !important;
+  }
+  
+  .about-heading {
+    font-size: 2rem !important;
+    margin-bottom: 30px !important;
+    text-align: center !important;
+    max-width: 100% !important;
+  }
+  
+  .about-para {
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    text-align: center !important;
+    max-width: 100% !important;
+  }
+  
+  .stat-card-stack {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  
+  .stat-card {
+    padding: 24px !important;
+    text-align: center !important;
+  }
+  
+  .about-contact-row {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 10px !important;
+    margin-top: 30px !important;
+  }
+  
+  .contact-pill {
+    width: 100% !important;
+    justify-content: center !important;
+    padding: 14px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-name-text {
+    font-size: 2rem !important;
+  }
+  
+  .about-heading {
+    font-size: 1.7rem !important;
+  }
+  
+  .nav-links-center button:nth-child(n+4) {
+    display: none !important; /* Show only first 3 links on very small screens */
+  }
+}
+
+/* SKILLS MOBILE REFINEMENTS */
+@media (max-width: 768px) {
+  .skill-card-final {
+    width: 260px !important;
+    padding: 24px 18px !important;
+  }
+  
+  .skill-icon-box {
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 1.3rem !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .skill-name-final {
+    font-size: 14px !important;
+    margin-bottom: 8px !important;
+  }
+  
+  .skill-desc-final {
+    font-size: 11.5px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 18px !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .skill-card-final {
+    width: 220px !important;
+  }
+  
+  .skills-section-final h2 {
+    font-size: 1.8rem !important;
+    padding: 0 7vw !important;
+  }
+}
+
+
+/* EXPERIENCE & PROJECTS MOBILE REFINEMENTS */
+@media (max-width: 768px) {
+  .timeline-line {
+    left: 20px !important;
+    transform: none !important;
+  }
+  
+  .experience-card-container {
+    padding-left: 50px !important;
+    flex-direction: column !important;
+    text-align: left !important;
+    align-items: flex-start !important;
+  }
+  
+  .experience-dot {
+    left: 12px !important;
+    transform: none !important;
+  }
+  
+  .projects-grid {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+  
+  .project-card {
+    height: 380px !important;
+  }
+  
+  .education-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+}
+
+
+/* SPECIFIC ABOUT & SKILLS MOBILE POLISH */
+@media (max-width: 768px) {
+  .about-container {
+    padding: 60px 5vw 40px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+  
+  .about-main-story {
+    margin-bottom: 40px !important;
+  }
+  
+  .about-heading {
+    font-size: 2.2rem !important;
+    margin-bottom: 25px !important;
+    max-width: 100% !important;
+  }
+  
+  .about-para {
+    font-size: 0.95rem !important;
+    max-width: 100% !important;
+    text-align: center !important;
+  }
+  
+  .stat-card-stack {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    width: 100% !important;
+  }
+  
+  .stat-card {
+    padding: 24px 20px !important;
+    transform: none !important;
+    text-align: center !important;
+  }
+  
+  .about-contact-row {
+    flex-direction: column !important;
+    gap: 12px !important;
+    margin-top: 40px !important;
+    width: 100% !important;
+  }
+  
+  .contact-pill {
+    width: 100% !important;
+    justify-content: center !important;
+    font-size: 12px !important;
+    padding: 15px !important;
+  }
+
+  .skills-section-final {
+    padding-top: 60px !important;
+    padding-bottom: 60px !important;
+  }
+  
+  .skills-section-final h2 {
+    font-size: 2rem !important;
+    text-align: center !important;
+    margin-bottom: 40px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-heading {
+    font-size: 1.8rem !important;
+  }
+  
+  .stat-card-num {
+    font-size: 2.8rem !important;
+  }
+}
+
