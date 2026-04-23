@@ -227,7 +227,6 @@ function SkillCard({ skill }: { skill: any }) {
       </motion.h3>
       
       <motion.p 
-        className="skill-desc-final"
         variants={descVariants}
         style={{
           fontSize: '12.5px',

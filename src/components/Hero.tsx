@@ -22,7 +22,7 @@ export default function Hero({ isActive = true }: { isActive?: boolean }) {
   };
 
   return (
-    <section id="hero" className="relative overflow-hidden">
+    <section id="hero" className="section-wrapper hero-section-full relative overflow-hidden">
       {/* Background Particles */}
       {init && (
         <Particles
@@ -135,12 +135,13 @@ export default function Hero({ isActive = true }: { isActive?: boolean }) {
           transition={{ delay: 0.2, duration: 1 }}
           className="hero-right-pane"
         >
-          <div className="profile-frame">
+          <div className="profile-frame-v2">
             <Image
               src="/phileya-profile.jpg"
               alt="Phileya Susan Koruth"
               fill
               className="object-cover"
+              style={{ objectPosition: 'center top' }}
               priority
             />
           </div>
