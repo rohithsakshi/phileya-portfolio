@@ -101,7 +101,7 @@ export default function Footer() {
             </a>
 
             <a
-              href="https://www.linkedin.com/in/phileya-susan-koruth-551802263"
+              href="https://www.linkedin.com/in/phileya-susan-koruth-551802263/"
               target="_blank"
               rel="noopener noreferrer"
               className="footer-secondary-btn"

@@ -79,7 +79,7 @@ export default function Contact({ isActive = true }: { isActive?: boolean }) {
           </form>
 
           <div className="flex justify-center gap-12 mt-12 pb-16">
-            <a href="#" className="nav-link">LinkedIn</a>
+            <a href="https://www.linkedin.com/in/phileya-susan-koruth-551802263/" target="_blank" rel="noopener noreferrer" className="nav-link">LinkedIn</a>
             <a href="#" className="nav-link">Email</a>
           </div>
         </div>

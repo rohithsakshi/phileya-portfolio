@@ -14,12 +14,12 @@ import CustomCursor from '@/components/CustomCursor';
 
 const SECTIONS = [
   { id: 'hero', component: Hero },
-  { id: 'about', component: About, label: '01 / ABOUT' },
-  { id: 'skills', component: Skills, label: '02 / SKILLS' },
-  { id: 'experience', component: Experience, label: '03 / EXPERIENCE' },
-  { id: 'project', component: Project, label: '04 / PROJECT' },
-  { id: 'education', component: Education, label: '05 / EDUCATION' },
-  { id: 'contact', component: Contact, label: '06 / CONTACT' },
+  { id: 'about', component: About },
+  { id: 'skills', component: Skills },
+  { id: 'experience', component: Experience },
+  { id: 'project', component: Project },
+  { id: 'education', component: Education },
+  { id: 'contact', component: Contact },
 ];
 
 export default function Home() {
@@ -130,20 +130,6 @@ export default function Home() {
       <CustomCursor />
       <Navbar />
 
-      {/* Centered Section Label below Navbar */}
-      <div className="section-label-centered">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={SECTIONS[index].label}
-            initial={{ y: -10, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 10, opacity: 0 }}
-            transition={{ duration: 0.4 }}
-          >
-            {SECTIONS[index].label}
-          </motion.div>
-        </AnimatePresence>
-      </div>
 
       <AnimatePresence initial={false} custom={direction} mode="popLayout">
         <motion.div
