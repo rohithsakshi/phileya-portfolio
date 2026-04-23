@@ -1,89 +1,150 @@
 'use client';
 
-import { useCallback } from 'react';
-import type { Engine } from '@tsparticles/engine';
-import Particles from '@tsparticles/react';
-import { loadSlim } from '@tsparticles/slim';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import dynamic from 'next/dynamic';
-
-const Scene3D = dynamic(() => import('./Scene3D'), { ssr: false });
+import Image from 'next/image';
+import Particles, { initParticlesEngine } from "@tsparticles/react";
+import { loadSlim } from "@tsparticles/slim";
 
 export default function Hero({ isActive = true }: { isActive?: boolean }) {
-  const particlesInit = useCallback(async (engine: Engine) => {
-    await loadSlim(engine);
+  const [init, setInit] = useState(false);
+
+  useEffect(() => {
+    initParticlesEngine(async (engine) => {
+      await loadSlim(engine);
+    }).then(() => {
+      setInit(true);
+    });
   }, []);
 
-  const name = "Phileya Susan Koruth";
-  const subtitle = "M.Sc. Biomedical Engineering · Heidelberg University";
-  const tagline = "Clinical tech. Patient safety. Intelligent systems.";
+  const handleNav = (id: string) => {
+    window.dispatchEvent(new CustomEvent('nav-to-section', { detail: id }));
+  };
 
   return (
-    <section className="section-wrapper bg-[var(--bg)]">
+    <section id="hero" className="relative overflow-hidden">
       {/* Background Particles */}
-      <div className="absolute inset-0 z-0">
+      {init && (
         <Particles
           id="tsparticles"
-          init={particlesInit}
-          className="h-full w-full"
+          className="absolute inset-0 z-0 pointer-events-none"
           options={{
             background: { color: "transparent" },
-            fullScreen: { enable: false },
+            fpsLimit: 120,
             particles: {
-              color: { value: ["#7A4954", "#F5EFDA"] },
-              links: { enable: true, opacity: 0.1, color: "#F5EFDA" },
-              move: { enable: true, speed: 0.5 },
-              number: { value: 50 },
-            }
+              color: { value: "#7A4954" },
+              links: {
+                color: "#7A4954",
+                distance: 150,
+                enable: true,
+                opacity: 0.2,
+                width: 1,
+              },
+              move: {
+                enable: true,
+                speed: 0.6,
+                direction: "none",
+                random: false,
+                straight: false,
+                outModes: { default: "out" },
+              },
+              number: {
+                density: { enable: true, width: 800 },
+                value: 40,
+              },
+              opacity: { value: 0.3 },
+              shape: { type: "circle" },
+              size: { value: { min: 1, max: 3 } },
+            },
+            detectRetina: true,
           }}
         />
-      </div>
+      )}
+      
+      <div className="hero-container relative z-10">
+        {/* LEFT COLUMN */}
+        <div className="hero-left-pane">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6 }}
+            className="hero-eyebrow"
+          >
+            BIOMEDICAL PORTFOLIO
+          </motion.div>
 
-      {/* Hero Content - Centered */}
-      <div className="z-20 flex flex-col items-center justify-center text-center w-full px-4">
-        <motion.h1 
-          initial={{ opacity: 0, y: 30 }}
-          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 1 }}
-          className="text-[clamp(2rem,8vw,6rem)] font-display text-[var(--cream)] mb-6 whitespace-nowrap"
-        >
-          {name}
-        </motion.h1>
+          <motion.h1
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={isActive ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.98 }}
+            transition={{ delay: 0.1, duration: 0.8 }}
+            className="hero-name-text"
+          >
+            Phileya Susan Koruth.
+          </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={isActive ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ delay: 0.8, duration: 1 }}
-          className="text-xl md:text-2xl text-[var(--cream-muted)] mb-10 font-display"
-        >
-          {subtitle}
-        </motion.p>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="hero-role-line"
+          >
+            Biomedical Engineer.
+          </motion.h1>
 
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="hero-bio"
+          >
+            M.Sc. Biomedical Engineering postgraduate at Heidelberg University with hands-on experience in clinical environments and critical care technologies.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="hero-btns"
+          >
+            <button onClick={() => handleNav('project')} className="btn-work">
+              VIEW WORK →
+            </button>
+            <button className="btn-opps">
+              <span className="dot-pulse-rose" />
+              OPEN TO OPPORTUNITIES
+            </button>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={isActive ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ delay: 0.7, duration: 0.8 }}
+            className="hero-stats-bar"
+          >
+            <span>M.Sc. STUDENT</span>
+            <div className="stat-dot" />
+            <span>HEIDELBERG</span>
+            <div className="stat-dot" />
+            <span>CLINICAL TECH</span>
+          </motion.div>
+        </div>
+
+        {/* RIGHT COLUMN */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={isActive ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-          transition={{ delay: 1.5, duration: 0.8 }}
-          className="px-6 py-2 border-l border-r border-[var(--rosewood)]"
+          initial={{ opacity: 0, scale: 0.95, x: 20 }}
+          animate={isActive ? { opacity: 1, scale: 1, x: 0 } : { opacity: 0, scale: 0.95, x: 20 }}
+          transition={{ delay: 0.2, duration: 1 }}
+          className="hero-right-pane"
         >
-          <p className="text-sm tracking-[0.5em] uppercase text-[var(--rose-light)] font-bold">
-            {tagline}
-          </p>
-        </motion.div>
-      </div>
-
-      {/* 3D torus in background */}
-      <div className="absolute inset-0 z-10 opacity-20 pointer-events-none">
-        {isActive && <Scene3D type="torus" />}
-      </div>
-
-      {/* Scroll Down Arrow */}
-      <div className="absolute bottom-8 left-0 w-full flex justify-center z-50">
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-          className="text-5xl text-[var(--cream)] opacity-60 font-light"
-        >
-          ↓
+          <div className="profile-frame">
+            <Image
+              src="/phileya-profile.jpg"
+              alt="Phileya Susan Koruth"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
         </motion.div>
       </div>
     </section>

@@ -1,13 +1,13 @@
 'use client';
 
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, RootState } from '@react-three/fiber';
 import { Float, Torus, Icosahedron } from '@react-three/drei';
 import { useRef } from 'react';
 import * as THREE from 'three';
 
 function AmbientTorus() {
   const meshRef = useRef<THREE.Mesh>(null!);
-  useFrame((state) => {
+  useFrame((state: RootState) => {
     meshRef.current.rotation.x += 0.005;
     meshRef.current.rotation.y += 0.005;
   });
@@ -28,7 +28,7 @@ function AmbientTorus() {
 
 function WireframeIcosahedron() {
   const meshRef = useRef<THREE.Mesh>(null!);
-  useFrame((state) => {
+  useFrame((state: RootState) => {
     meshRef.current.rotation.x += 0.01;
     meshRef.current.rotation.y += 0.01;
   });

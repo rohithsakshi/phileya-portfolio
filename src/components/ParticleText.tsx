@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useMemo, useEffect } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame, useThree, RootState } from '@react-three/fiber';
 import * as THREE from 'three';
 
 const PARTICLE_COUNT = 5000;
@@ -61,7 +61,7 @@ function Particles({ scrollProgress }: { scrollProgress: number }) {
 
   const currentPositions = useMemo(() => new Float32Array(PARTICLE_COUNT * 3), []);
 
-  useFrame((state) => {
+  useFrame((state: RootState) => {
     const time = state.clock.getElapsedTime();
     const positions = meshRef.current.geometry.attributes.position.array as Float32Array;
     

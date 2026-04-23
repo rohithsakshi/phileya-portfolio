@@ -13,7 +13,7 @@ import Navbar from '@/components/Navbar';
 import CustomCursor from '@/components/CustomCursor';
 
 const SECTIONS = [
-  { id: 'hero', component: Hero, label: '00 / HOME' },
+  { id: 'hero', component: Hero },
   { id: 'about', component: About, label: '01 / ABOUT' },
   { id: 'skills', component: Skills, label: '02 / SKILLS' },
   { id: 'experience', component: Experience, label: '03 / EXPERIENCE' },
@@ -106,7 +106,7 @@ export default function Home() {
     <main className="main-container overflow-hidden bg-[var(--bg)]">
       <CustomCursor />
       <Navbar />
-      
+
       {/* Centered Section Label below Navbar */}
       <div className="section-label-centered">
         <AnimatePresence mode="wait">
@@ -131,8 +131,8 @@ export default function Home() {
           animate="center"
           exit="exit"
           className="absolute inset-0 w-full h-full"
-          style={{ 
-            transformStyle: 'preserve-3d', 
+          style={{
+            transformStyle: 'preserve-3d',
             perspective: '2000px',
             transformOrigin: direction > 0 ? 'left center' : 'right center',
             zIndex: 10 // Ensure it's below the label and navbar
@@ -144,12 +144,11 @@ export default function Home() {
 
       <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[1000] flex gap-4">
         {SECTIONS.map((_, i) => (
-          <div 
+          <div
             key={i}
             onClick={() => goToSection(i)}
-            className={`w-2 h-2 rounded-full cursor-pointer transition-all duration-500 ${
-              i === index ? 'bg-[var(--rose-light)] scale-150 shadow-[0_0_10px_var(--rose-glow)]' : 'bg-[var(--rosewood)] opacity-30'
-            }`}
+            className={`w-2 h-2 rounded-full cursor-pointer transition-all duration-500 ${i === index ? 'bg-[var(--rose-light)] scale-150 shadow-[0_0_10px_var(--rose-glow)]' : 'bg-[var(--rosewood)] opacity-30'
+              }`}
           />
         ))}
       </div>
