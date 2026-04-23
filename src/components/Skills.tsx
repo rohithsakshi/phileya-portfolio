@@ -70,31 +70,13 @@ const bottomRow = [...skills.slice(5, 10), ...skills.slice(5, 10)];
 
 export default function Skills({ isActive = true }: { isActive?: boolean }) {
   return (
-    <section className="skills-section-final" style={{ 
-      background: '#1A0E10', 
-      minHeight: '100vh', 
-      width: '100%',
-      padding: '100px 0 80px',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      overflow: 'hidden'
-    }}>
-      <div style={{ maxWidth: '1600px', margin: '0 auto', width: '100%', padding: '0 7vw', marginBottom: '50px' }}>
+    <section className="skills-section-final">
+      <div className="skills-header-container">
         <header style={{ textAlign: 'left' }}>
           <motion.span 
             initial={{ opacity: 0, y: 10 }}
             animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-            style={{ 
-              color: '#F5EFDA', 
-              fontSize: '11px', 
-              fontWeight: 700, 
-              letterSpacing: '0.15em', 
-              textTransform: 'uppercase',
-              display: 'block',
-              marginBottom: '8px',
-              opacity: 0.8
-            }}
+            className="skills-label"
           >
             02 / SKILLS
           </motion.span>
@@ -102,25 +84,20 @@ export default function Skills({ isActive = true }: { isActive?: boolean }) {
             initial={{ opacity: 0, y: 20 }}
             animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ delay: 0.1 }}
-            style={{ 
-              fontFamily: "'Cormorant Garamond', serif", 
-              fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', 
-              color: '#F5EFDA', 
-              lineHeight: 1.1 
-            }}
+            className="skills-heading"
           >
             Core competencies & clinical expertise.
           </motion.h2>
         </header>
       </div>
 
-      <div className="carousel-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%' }}>
+      <div className="carousel-wrapper">
         {/* TOP ROW: LEFT TO RIGHT */}
-        <div style={{ width: '100%', overflow: 'hidden', position: 'relative' }}>
+        <div className="carousel-track-container">
           <motion.div 
             animate={{ x: ['-50%', '0%'] }}
             transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-            style={{ display: 'flex', gap: '20px', width: 'fit-content' }}
+            className="carousel-track"
           >
             {topRow.map((skill, i) => (
               <SkillCard key={`top-${i}`} skill={skill} />
@@ -129,11 +106,11 @@ export default function Skills({ isActive = true }: { isActive?: boolean }) {
         </div>
 
         {/* BOTTOM ROW: RIGHT TO LEFT */}
-        <div style={{ width: '100%', overflow: 'hidden', position: 'relative' }}>
+        <div className="carousel-track-container">
           <motion.div 
             animate={{ x: ['0%', '-50%'] }}
             transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-            style={{ display: 'flex', gap: '20px', width: 'fit-content' }}
+            className="carousel-track"
           >
             {bottomRow.map((skill, i) => (
               <SkillCard key={`bottom-${i}`} skill={skill} />
@@ -177,84 +154,35 @@ function SkillCard({ skill }: { skill: any }) {
       whileHover="hover"
       variants={cardVariants}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
-      style={{
-        borderWidth: '1px',
-        borderStyle: 'solid',
-        borderRadius: '12px',
-        padding: '28px 24px',
-        display: 'flex',
-        flexDirection: 'column',
-        width: '320px',
-        flexShrink: 0,
-        height: '100%',
-        position: 'relative',
-        overflow: 'hidden',
-        cursor: 'default',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
-      }}
       className="skill-card-final"
     >
       <motion.div 
         variants={iconBoxVariants}
-        style={{
-          width: '48px',
-          height: '48px',
-          borderRadius: '10px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '1.5rem',
-          marginBottom: '20px',
-          borderWidth: '1px',
-          borderStyle: 'solid',
-          transition: 'all 0.3s ease'
-        }}
+        className="skill-icon-box"
       >
         {skill.icon}
       </motion.div>
       
       <motion.h3 
         variants={titleVariants}
-        style={{
-          fontSize: '16px',
-          fontWeight: 700,
-          marginBottom: '12px',
-          letterSpacing: '0.01em',
-          transition: 'color 0.3s ease'
-        }}
+        className="skill-title"
       >
         {skill.name}
       </motion.h3>
       
       <motion.p 
         variants={descVariants}
-        style={{
-          fontSize: '12.5px',
-          lineHeight: 1.6,
-          marginBottom: '24px',
-          flexGrow: 1,
-          transition: 'color 0.3s ease'
-        }}
+        className="skill-desc"
       >
         {skill.desc}
       </motion.p>
       
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+      <div className="skill-tags-container">
         {skill.tags.map((tag: string, j: number) => (
           <motion.span 
             key={j} 
             variants={tagVariants}
-            style={{
-              fontSize: '10px',
-              fontWeight: 700,
-              borderWidth: '1px',
-              borderStyle: 'solid',
-              padding: '4px 10px',
-              borderRadius: '4px',
-              letterSpacing: '0.03em',
-              textTransform: 'uppercase',
-              transition: 'all 0.3s ease'
-            }}
+            className="skill-tag"
           >
             {tag}
           </motion.span>
