@@ -1,131 +1,70 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-
-const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Research", href: "#research" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
-];
+import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 export default function Navbar() {
-  const [visible, setVisible] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setVisible(window.scrollY > 80);
+    const handleNavState = (e: any) => {
+      setIsScrolled(e.detail !== 'hero');
     };
-
-    window.addEventListener("scroll", handleScroll, {
-      passive: true,
-    });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    window.addEventListener('nav-to-section', handleNavState);
+    return () => window.removeEventListener('nav-to-section', handleNavState);
   }, []);
 
-  const scrollToTop = (
-    e: React.MouseEvent<HTMLAnchorElement>
-  ) => {
-    e.preventDefault();
+  const links = [
+    { name: "About", id: "about" },
+    { name: "Skills", id: "skills" },
+    { name: "Experience", id: "experience" },
+    { name: "Project", id: "project" },
+    { name: "Education", id: "education" },
+    { name: "Contact", id: "contact" }
+  ];
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+  const handleNav = (id: string) => {
+    window.dispatchEvent(new CustomEvent('nav-to-section', { detail: id }));
   };
 
   return (
-    <AnimatePresence>
-      {visible && (
-        <motion.nav
-          initial={{
-            opacity: 0,
-            y: -24,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          exit={{
-            opacity: 0,
-            y: -24,
-          }}
-          transition={{
-            duration: 0.55,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="fixed top-0 left-0 right-0 z-50"
-          style={{
-            background: "rgba(0, 49, 53, 0.72)",
-            backdropFilter: "blur(22px) saturate(1.5)",
-            WebkitBackdropFilter: "blur(22px) saturate(1.5)",
-            borderBottom:
-              "0.5px solid rgba(175, 221, 229, 0.08)",
-          }}
+    <div className="navbar-wrapper">
+      <motion.nav 
+        className="navbar-pill flex items-center justify-between"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        style={{ width: 'max-content', maxWidth: '90vw' }}
+      >
+        {/* Logo on far left */}
+        <div 
+          className="nav-logo cursor-pointer mr-8"
+          onClick={() => handleNav('hero')}
         >
-          <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12 h-[72px] flex items-center justify-between">
-            {/* LEFT — Avatar Logo */}
-            <a
-              href="#hero"
-              onClick={scrollToTop}
-              className="relative flex items-center group"
+          PSK
+        </div>
+        
+        {/* Nav Links centered */}
+        <div className="flex items-center gap-6">
+          {links.map((link) => (
+            <button
+              key={link.id}
+              onClick={() => handleNav(link.id)}
+              className="nav-link"
             >
-              <div
-                className="relative rounded-full overflow-hidden"
-                style={{
-                  width: "42px",
-                  height: "42px",
-                  border:
-                    "1.5px solid rgba(15, 164, 175, 0.35)",
-                  boxShadow:
-                    "0 0 0 4px rgba(15, 164, 175, 0.06)",
-                }}
-              >
-                <Image
-                  src="/phileya-profile.jpg"
-                  alt="Phileya Susan Koruth"
-                  fill
-                  className="object-cover object-top"
-                  sizes="42px"
-                />
-              </div>
-            </a>
+              {link.name}
+            </button>
+          ))}
+        </div>
 
-            {/* RIGHT — Nav Links */}
-            <div className="flex items-center gap-5 md:gap-8">
-              {navLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="text-[13px] tracking-[0.04em] font-normal text-[rgba(175,221,229,0.55)] hover:text-[#AFDDE5] transition-colors duration-300"
-                >
-                  {link.label}
-                </a>
-              ))}
-
-              {/* CV Button */}
-              <a
-                href="/Phileya_Susan_Koruth_CV.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-5 py-2 rounded-full border text-[11px] font-medium tracking-[0.08em] uppercase transition-all duration-300 hover:bg-[rgba(15,164,175,0.10)]"
-                style={{
-                  border:
-                    "0.5px solid rgba(15, 164, 175, 0.35)",
-                  color: "#0FA4AF",
-                }}
-              >
-                CV
-              </a>
-            </div>
-          </div>
-        </motion.nav>
-      )}
-    </AnimatePresence>
+        {/* CTA on far right */}
+        <button 
+          className="ml-8 bg-[var(--rosewood)] text-[var(--cream)] px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[var(--rose-light)] transition-colors"
+          onClick={() => handleNav('contact')}
+        >
+          LET&apos;S TALK
+        </button>
+      </motion.nav>
+    </div>
   );
 }

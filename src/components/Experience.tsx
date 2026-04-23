@@ -1,317 +1,65 @@
-"use client";
+'use client';
+
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 
 const experiences = [
   {
-    role: "Clinical Biomedical Engineer — Critical Care",
-    org: "Aster Medcity Hospital",
-    location: "Kochi, India",
-    period: "Jun 2024 – Sep 2024",
-    type: "Internship",
-    highlight: true,
-    bullets: [
-      "Diagnosed and resolved faults in ventilators, patient monitors, and defibrillators in live ICU and emergency settings.",
-      "Maintained ISO-compliant service documentation for critical care devices, supporting audit readiness and clinical handover.",
-      "Collaborated directly with clinical staff to minimise device downtime in high-acuity wards.",
-      "Gained working exposure to CSSD workflows, anaesthesia equipment, and operating theatre infrastructure.",
-    ],
-    tags: [
-      "ICU Technology",
-      "Ventilators",
-      "Patient Safety",
-      "ISO Compliance",
-      "Defibrillators",
-    ],
+    company: "Aster Medcity Hospital",
+    role: "Biomedical Engineering Trainee",
+    date: "Feb 2025 – Jun 2025",
+    desc: "Troubleshooting & maintenance of patient monitors, ventilators, defibrillators; calibration & preventive maintenance; service record documentation; ICU & emergency care exposure."
   },
   {
-    role: "Biomedical Engineering Intern — Procurement & Operations",
-    org: "Cyrix Healthcare",
-    location: "Kochi, India",
-    period: "Dec 2023 – Jan 2024",
-    type: "Internship",
-    highlight: false,
-    bullets: [
-      "Managed SAP purchasing module workflows for medical device procurement across multiple vendor accounts.",
-      "Supported inventory management and supply chain coordination for diagnostic and therapeutic equipment.",
-      "Prepared technical documentation and procurement reports for capital equipment acquisition.",
-    ],
-    tags: [
-      "SAP",
-      "Procurement",
-      "Medical Devices",
-      "Inventory Management",
-    ],
+    company: "Cyrix Healthcare Pvt. Ltd.",
+    role: "Procurement Assistant",
+    date: "Apr 2024 – Sep 2024",
+    desc: "SAP Purchasing Module; purchase records & inventory tracking; vendor coordination; structured data organization."
   },
   {
-    role: "Biomedical Engineering Intern",
-    org: "DR KM Cherian Heart Foundation",
-    location: "Kochi, India",
-    period: "Dec 2022 – Jan 2023",
-    type: "Internship",
-    highlight: false,
-    bullets: [
-      "Observed cardiology device workflows including ECG systems and cardiac monitoring equipment.",
-      "Supported equipment calibration and routine preventive maintenance schedules.",
-    ],
-    tags: [
-      "Cardiac Equipment",
-      "ECG Systems",
-      "Preventive Maintenance",
-    ],
-  },
+    company: "DR KM Cherian Institute of Medical Sciences",
+    role: "Biomedical Engineer Intern",
+    date: "Jun 2022 – Jul 2022",
+    desc: "Medical equipment maintenance checks; emergency breakdown support for ventilators & defibrillators; equipment history records; preventive maintenance documentation."
+  }
 ];
 
 export default function Experience() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start end", "end end"] });
+  const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
   return (
-    <section
-      id="experience"
-      className="psk-section psk-section--elevated"
-    >
-      <div className="psk-grid-overlay" />
+    <section ref={containerRef} className="section-wrapper bg-[var(--bg)]">
+      <div className="w-full max-w-[1100px] relative flex flex-col gap-12 px-4">
+        {/* Centered Timeline Line */}
+        <motion.div style={{ scaleY, transformOrigin: "top" }} className="timeline-line" />
 
-      <div
-        className="psk-container"
-        style={{
-          position: "relative",
-          zIndex: 1,
-        }}
-      >
-        {/* Header */}
-        <div style={{ marginBottom: "64px" }}>
-          <div className="psk-section-label">
-            <span>02 — Experience</span>
-          </div>
-
-          <h2 className="psk-section-title">
-            Clinical & Professional
-            <br />
-            <strong>Background</strong>
-          </h2>
-
-          <p className="psk-section-subtitle">
-            Hands-on experience across critical care
-            engineering, medical device operations,
-            procurement systems, and hospital workflows.
-          </p>
-        </div>
-
-        {/* Timeline */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "0",
-          }}
-        >
-          {experiences.map((exp, idx) => (
-            <div
-              key={idx}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "28px 1fr",
-                gap: "28px",
-                paddingBottom:
-                  idx < experiences.length - 1
-                    ? "42px"
-                    : "0",
-              }}
-            >
-              {/* Timeline Spine */}
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  paddingTop: "6px",
-                }}
+        <div className="flex flex-col gap-16 w-full">
+          {experiences.map((exp, i) => (
+            <div key={i} className={`flex w-full ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-8`}>
+              <motion.div
+                initial={{ opacity: 0, x: i % 2 === 0 ? -80 : 80 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="w-full md:w-[46%] z-10"
               >
-                {/* Dot */}
-                <div
-                  style={{
-                    width: "10px",
-                    height: "10px",
-                    borderRadius: "50%",
-                    background: exp.highlight
-                      ? "var(--teal-aqua)"
-                      : "var(--teal-deep)",
-                    border: `1.5px solid ${
-                      exp.highlight
-                        ? "var(--teal-aqua)"
-                        : "var(--border-medium)"
-                    }`,
-                    boxShadow: exp.highlight
-                      ? "0 0 0 3px rgba(15,164,175,0.15)"
-                      : "none",
-                    flexShrink: 0,
-                  }}
-                />
-
-                {/* Line */}
-                {idx < experiences.length - 1 && (
-                  <div
-                    style={{
-                      width: "1px",
-                      flex: 1,
-                      minHeight: "44px",
-                      marginTop: "8px",
-                      background:
-                        "linear-gradient(to bottom, var(--border-medium), transparent)",
-                    }}
-                  />
-                )}
+                <div className={`card ${i % 2 === 0 ? 'md:text-right' : 'md:text-left'} text-center`}>
+                  <h3 className="text-2xl font-display text-[var(--rose-light)] mb-1">{exp.company}</h3>
+                  <p className="text-sm uppercase tracking-widest text-[var(--cream)] mb-2">{exp.role}</p>
+                  <p className="text-xs text-[var(--cream-muted)] mb-4">{exp.date}</p>
+                  <p className="text-sm leading-relaxed text-[var(--cream-muted)]">{exp.desc}</p>
+                </div>
+              </motion.div>
+              
+              {/* Center Space for Dot */}
+              <div className="hidden md:flex w-[8%] justify-center relative">
+                <div className="w-4 h-4 rounded-full bg-[var(--rose-light)] shadow-[0_0_15px_var(--rose-glow)] border-4 border-[var(--bg)]" />
               </div>
 
-              {/* Card */}
-              <div
-                className="psk-card"
-                style={{
-                  padding: "30px 34px",
-                  borderColor: exp.highlight
-                    ? "var(--border-medium)"
-                    : "var(--border-subtle)",
-                  background: exp.highlight
-                    ? "rgba(15,74,79,0.35)"
-                    : "var(--bg-card)",
-                }}
-              >
-                {/* Top Row */}
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "flex-start",
-                    gap: "16px",
-                    marginBottom: "22px",
-                    flexWrap: "wrap",
-                  }}
-                >
-                  <div>
-                    <p
-                      style={{
-                        fontFamily:
-                          "var(--font-display)",
-                        fontSize:
-                          "clamp(18px, 2.2vw, 22px)",
-                        fontWeight: 500,
-                        color:
-                          "var(--text-primary)",
-                        marginBottom: "6px",
-                        lineHeight: 1.3,
-                      }}
-                    >
-                      {exp.role}
-                    </p>
-
-                    <p
-                      style={{
-                        fontSize: "13px",
-                        color: "var(--teal-aqua)",
-                        letterSpacing: "0.02em",
-                      }}
-                    >
-                      {exp.org}
-                      <span
-                        style={{
-                          color:
-                            "var(--text-muted)",
-                          margin: "0 8px",
-                        }}
-                      >
-                        ·
-                      </span>
-                      {exp.location}
-                    </p>
-                  </div>
-
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "flex-end",
-                      gap: "6px",
-                      flexShrink: 0,
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontSize: "11px",
-                        color: "var(--text-muted)",
-                        letterSpacing: "0.04em",
-                        whiteSpace: "nowrap",
-                        fontFamily:
-                          "var(--font-mono)",
-                      }}
-                    >
-                      {exp.period}
-                    </span>
-
-                    <span className="psk-badge psk-badge--complete">
-                      {exp.type}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Bullets */}
-                <ul
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "10px",
-                    marginBottom: "22px",
-                  }}
-                >
-                  {exp.bullets.map((b, i) => (
-                    <li
-                      key={i}
-                      style={{
-                        display: "flex",
-                        gap: "12px",
-                        alignItems: "flex-start",
-                      }}
-                    >
-                      <span
-                        style={{
-                          color: "var(--teal-aqua)",
-                          fontSize: "10px",
-                          marginTop: "5px",
-                          flexShrink: 0,
-                        }}
-                      >
-                        ▸
-                      </span>
-
-                      <span
-                        style={{
-                          fontSize:
-                            "clamp(14px, 1.5vw, 15px)",
-                          color:
-                            "var(--text-secondary)",
-                          lineHeight: 1.75,
-                        }}
-                      >
-                        {b}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Tags */}
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: "8px",
-                  }}
-                >
-                  {exp.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="psk-tag"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              {/* Spacer for alternating */}
+              <div className="hidden md:block w-[46%]" />
             </div>
           ))}
         </div>

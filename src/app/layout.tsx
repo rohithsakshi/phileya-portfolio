@@ -1,53 +1,28 @@
-import type { Metadata } from 'next'
-import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
-import './globals.css'
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-  style: ['normal', 'italic'],
-  variable: '--font-cormorant',
-  display: 'swap',
-})
-
-const dmSans = DM_Sans({
-  subsets: ['latin'],
-  weight: ['300', '400', '500'],
-  variable: '--font-dm-sans',
-  display: 'swap',
-})
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Phileya Susan Koruth | Biomedical Engineer',
-  description:
-    'M.Sc. Biomedical Engineering at Heidelberg University. Clinical engineer focused on critical care technology, medical device safety, and healthcare systems.',
-  keywords: [
-    'Biomedical Engineering',
-    'Medical Devices',
-    'Clinical Engineer',
-    'Heidelberg University',
-    'ICU Technology',
-    'Patient Safety',
-  ],
-  authors: [{ name: 'Phileya Susan Koruth' }],
-  openGraph: {
-    title: 'Phileya Susan Koruth | Biomedical Engineer',
-    description:
-      'Clinical engineer focused on critical care technology, medical device safety, and healthcare systems.',
-    type: 'website',
-  },
-}
+  title: "Phileya Susan Koruth | Biomedical Engineering",
+  description: "Portfolio of Phileya Susan Koruth, a Biomedical Engineering postgraduate at Heidelberg University.",
+};
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode
-}) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${dmSans.variable} scroll-smooth`}>
-      <body className="antialiased">
+    <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
+      <body className={inter.className}>
         {children}
       </body>
     </html>
-  )
+  );
 }

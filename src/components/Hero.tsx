@@ -1,391 +1,91 @@
-"use client";
+'use client';
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import ParticleField from "@/components/ui/ParticleField";
-import LanyardCard from "@/components/ui/LanyardCard";
+import { useCallback } from 'react';
+import type { Engine } from '@tsparticles/engine';
+import Particles from '@tsparticles/react';
+import { loadSlim } from '@tsparticles/slim';
+import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 
-const stagger = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.2,
-    },
-  },
-};
+const Scene3D = dynamic(() => import('./Scene3D'), { ssr: false });
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
-  },
-};
+export default function Hero({ isActive = true }: { isActive?: boolean }) {
+  const particlesInit = useCallback(async (engine: Engine) => {
+    await loadSlim(engine);
+  }, []);
 
-export default function Hero() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, 60]);
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const name = "Phileya Susan Koruth";
+  const subtitle = "M.Sc. Biomedical Engineering · Heidelberg University";
+  const tagline = "Clinical tech. Patient safety. Intelligent systems.";
 
   return (
-    <section
-      ref={sectionRef}
-      id="hero"
-      style={{
-        position: "relative",
-        width: "100%",
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        overflow: "hidden",
-        background:
-          "radial-gradient(ellipse 120% 80% at 60% 40%, #003135 0%, #001a1d 42%, #000d0f 100%)",
-      }}
-    >
+    <section className="section-wrapper bg-[var(--bg)]">
       {/* Background Particles */}
-      <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-        <ParticleField className="w-full h-full" />
+      <div className="absolute inset-0 z-0">
+        <Particles
+          id="tsparticles"
+          init={particlesInit}
+          className="h-full w-full"
+          options={{
+            background: { color: "transparent" },
+            fullScreen: { enable: false },
+            particles: {
+              color: { value: ["#7A4954", "#F5EFDA"] },
+              links: { enable: true, opacity: 0.1, color: "#F5EFDA" },
+              move: { enable: true, speed: 0.5 },
+              number: { value: 50 },
+            }
+          }}
+        />
       </div>
 
-      {/* Soft Grid Overlay */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 0,
-          opacity: 0.025,
-          backgroundImage:
-            "linear-gradient(rgba(175,221,229,1) 1px, transparent 1px), linear-gradient(90deg, rgba(175,221,229,1) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }}
-      />
-
-      {/* Vignette */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 0,
-          background:
-            "radial-gradient(ellipse 70% 80% at 50% 50%, transparent 30%, rgba(0,13,15,0.72) 100%)",
-        }}
-      />
-
-      {/* Main Content */}
-      <motion.div
-        style={{
-          y: contentY,
-          opacity,
-          position: "relative",
-          zIndex: 10,
-          width: "100%",
-          maxWidth: "1280px",
-          margin: "0 auto",
-          padding: "0 64px",
-          boxSizing: "border-box" as const,
-        }}
-      >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            alignItems: "center",
-            gap: "48px",
-            minHeight: "100vh",
-            paddingTop: "80px",
-            paddingBottom: "80px",
-            boxSizing: "border-box" as const,
-          }}
+      {/* Hero Content - Centered */}
+      <div className="z-20 flex flex-col items-center justify-center text-center w-full px-4">
+        <motion.h1 
+          initial={{ opacity: 0, y: 30 }}
+          animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 1 }}
+          className="text-[clamp(2rem,8vw,6rem)] font-display text-[var(--cream)] mb-6 whitespace-nowrap"
         >
-          {/* LEFT SIDE */}
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            animate="show"
-            style={{
-              display: "flex",
-              flexDirection: "column" as const,
-              justifyContent: "center",
-            }}
-          >
-            {/* Eyebrow */}
-            <motion.div
-              variants={fadeUp}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "12px",
-                marginBottom: "28px",
-              }}
-            >
-              <div
-                style={{
-                  width: "34px",
-                  height: "1px",
-                  background: "linear-gradient(90deg, transparent, #0FA4AF)",
-                  flexShrink: 0,
-                }}
-              />
-              <span
-                style={{
-                  fontSize: "11px",
-                  letterSpacing: "0.22em",
-                  color: "#0FA4AF",
-                  textTransform: "uppercase" as const,
-                  fontFamily: "var(--font-mono, monospace)",
-                  whiteSpace: "nowrap" as const,
-                }}
-              >
-                Biomedical Engineer
-              </span>
-            </motion.div>
+          {name}
+        </motion.h1>
 
-            {/* Name */}
-            <motion.h1 variants={fadeUp} style={{ margin: "0 0 12px" }}>
-              <span
-                style={{
-                  display: "block",
-                  fontSize: "clamp(40px, 5.5vw, 72px)",
-                  fontWeight: 300,
-                  color: "#AFDDE5",
-                  lineHeight: 1.02,
-                  letterSpacing: "-0.025em",
-                  fontFamily: "'Cormorant Garamond', Georgia, serif",
-                }}
-              >
-                Phileya Susan
-              </span>
-              <span
-                style={{
-                  display: "block",
-                  fontSize: "clamp(40px, 5.5vw, 72px)",
-                  fontWeight: 600,
-                  color: "#AFDDE5",
-                  lineHeight: 1.02,
-                  letterSpacing: "-0.03em",
-                  fontFamily: "'Cormorant Garamond', Georgia, serif",
-                }}
-              >
-                Koruth
-              </span>
-            </motion.h1>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isActive ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ delay: 0.8, duration: 1 }}
+          className="text-xl md:text-2xl text-[var(--cream-muted)] mb-10 font-display"
+        >
+          {subtitle}
+        </motion.p>
 
-            {/* Divider */}
-            <motion.div variants={fadeUp} style={{ marginBottom: "24px" }}>
-              <div
-                style={{
-                  width: "56px",
-                  height: "1.5px",
-                  background:
-                    "linear-gradient(90deg, #0FA4AF, rgba(15,164,175,0.15))",
-                }}
-              />
-            </motion.div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={isActive ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+          transition={{ delay: 1.5, duration: 0.8 }}
+          className="px-6 py-2 border-l border-r border-[var(--rosewood)]"
+        >
+          <p className="text-sm tracking-[0.5em] uppercase text-[var(--rose-light)] font-bold">
+            {tagline}
+          </p>
+        </motion.div>
+      </div>
 
-            {/* Description */}
-            <motion.p
-              variants={fadeUp}
-              style={{
-                fontSize: "clamp(15px, 1.6vw, 18px)",
-                color: "rgba(175,221,229,0.58)",
-                fontWeight: 300,
-                lineHeight: 1.75,
-                maxWidth: "480px",
-                letterSpacing: "0.01em",
-                marginBottom: "28px",
-              }}
-            >
-              M.Sc. Biomedical Engineering candidate at{" "}
-              <span style={{ color: "rgba(175,221,229,0.86)" }}>
-                Heidelberg University
-              </span>
-              . Bridging precision engineering with life sciences — from medical
-              imaging to neural interfaces.
-            </motion.p>
+      {/* 3D torus in background */}
+      <div className="absolute inset-0 z-10 opacity-20 pointer-events-none">
+        {isActive && <Scene3D type="torus" />}
+      </div>
 
-            {/* Tags */}
-            <motion.div
-              variants={fadeUp}
-              style={{
-                display: "flex",
-                flexWrap: "wrap" as const,
-                gap: "8px",
-                marginBottom: "36px",
-              }}
-            >
-              {[
-                "Neural Engineering",
-                "Medical Imaging",
-                "Biomechanics",
-                "Signal Processing",
-              ].map((tag) => (
-                <span
-                  key={tag}
-                  style={{
-                    fontSize: "11px",
-                    letterSpacing: "0.08em",
-                    color: "rgba(175,221,229,0.5)",
-                    border: "0.5px solid rgba(175,221,229,0.12)",
-                    padding: "6px 14px",
-                    borderRadius: "999px",
-                    background: "rgba(15,74,79,0.28)",
-                    whiteSpace: "nowrap" as const,
-                  }}
-                >
-                  {tag}
-                </span>
-              ))}
-            </motion.div>
-
-            {/* CTA Buttons */}
-            <motion.div
-              variants={fadeUp}
-              style={{
-                display: "flex",
-                flexWrap: "wrap" as const,
-                alignItems: "center",
-                gap: "16px",
-                marginBottom: "48px",
-              }}
-            >
-              <a
-                href="#projects"
-                style={{
-                  display: "inline-block",
-                  padding: "13px 32px",
-                  borderRadius: "999px",
-                  background:
-                    "linear-gradient(135deg, #0FA4AF 0%, #0F4A4F 100%)",
-                  fontSize: "12px",
-                  letterSpacing: "0.08em",
-                  color: "#AFDDE5",
-                  textTransform: "uppercase" as const,
-                  fontWeight: 500,
-                  boxShadow: "0 10px 32px rgba(15,164,175,0.18)",
-                  transition: "all 0.3s ease",
-                  textDecoration: "none",
-                }}
-              >
-                View Work
-              </a>
-
-              <a
-                href="#contact"
-                style={{
-                  display: "inline-block",
-                  padding: "13px 32px",
-                  borderRadius: "999px",
-                  border: "0.5px solid rgba(175,221,229,0.2)",
-                  fontSize: "12px",
-                  letterSpacing: "0.08em",
-                  color: "rgba(175,221,229,0.62)",
-                  textTransform: "uppercase" as const,
-                  fontWeight: 400,
-                  transition: "all 0.3s ease",
-                  textDecoration: "none",
-                }}
-              >
-                Get in Touch
-              </a>
-            </motion.div>
-
-            {/* Scroll Indicator */}
-            <motion.div
-              variants={fadeUp}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-              }}
-              animate={{ y: [0, 6, 0] }}
-              transition={{
-                repeat: Infinity,
-                duration: 2.4,
-                ease: "easeInOut",
-              }}
-            >
-              <div
-                style={{
-                  width: "20px",
-                  height: "32px",
-                  border: "0.5px solid rgba(175,221,229,0.22)",
-                  borderRadius: "10px",
-                  display: "flex",
-                  justifyContent: "center",
-                  paddingTop: "6px",
-                  flexShrink: 0,
-                }}
-              >
-                <div
-                  style={{
-                    width: "3px",
-                    height: "6px",
-                    borderRadius: "2px",
-                    background: "rgba(15,164,175,0.65)",
-                  }}
-                />
-              </div>
-              <span
-                style={{
-                  fontSize: "10px",
-                  letterSpacing: "0.15em",
-                  color: "rgba(175,221,229,0.25)",
-                  textTransform: "uppercase" as const,
-                }}
-              >
-                Scroll
-              </span>
-            </motion.div>
-          </motion.div>
-
-          {/* RIGHT SIDE — Lanyard Card */}
-          <motion.div
-            initial={{ opacity: 0, x: 40, scale: 0.96 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            transition={{
-              duration: 1.2,
-              delay: 0.45,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "100%",
-            }}
-          >
-            <LanyardCard
-              imageSrc="/phileya-profile.jpg"
-              name="Phileya Susan Koruth"
-              title="M.Sc. Biomedical Engineering"
-              institution="Heidelberg University"
-            />
-          </motion.div>
-        </div>
-      </motion.div>
-
-      {/* Bottom Fade */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: "120px",
-          zIndex: 10,
-          background:
-            "linear-gradient(to bottom, transparent, rgba(0,13,15,0.85))",
-          pointerEvents: "none",
-        }}
-      />
+      {/* Scroll Down Arrow */}
+      <div className="absolute bottom-8 left-0 w-full flex justify-center z-50">
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 2 }}
+          className="text-5xl text-[var(--cream)] opacity-60 font-light"
+        >
+          ↓
+        </motion.div>
+      </div>
     </section>
   );
 }
