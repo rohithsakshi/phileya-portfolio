@@ -8,8 +8,8 @@ export default function Navbar() {
     { name: "Home", id: "hero" },
     { name: "About", id: "about" },
     { name: "Skills", id: "skills" },
-    { name: "Projects", id: "project" },
     { name: "Experience", id: "experience" },
+    { name: "Projects", id: "project" },
   ];
 
   const handleNav = (id: string) => {
