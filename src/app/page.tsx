@@ -193,16 +193,6 @@ export default function Home() {
         </motion.div>
       </AnimatePresence>
 
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[1000] flex gap-4">
-        {SECTIONS.map((_, i) => (
-          <div
-            key={i}
-            onClick={() => goToSection(i)}
-            className={`w-2 h-2 rounded-full cursor-pointer transition-all duration-500 ${i === index ? 'bg-[var(--rose-light)] scale-150 shadow-[0_0_10px_var(--rose-glow)]' : 'bg-[var(--rosewood)] opacity-30'
-              }`}
-          />
-        ))}
-      </div>
     </main>
   );
 }

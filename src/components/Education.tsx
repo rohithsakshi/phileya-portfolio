@@ -7,9 +7,9 @@ import { Award, GraduationCap, BookOpen } from 'lucide-react';
 export default function Education({ isActive = true }: { isActive?: boolean }) {
   const itemVariants = {
     hidden: { opacity: 0, y: 20, filter: 'blur(5px)' },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
+    visible: {
+      opacity: 1,
+      y: 0,
       filter: 'blur(0px)',
       transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
     }
@@ -17,14 +17,14 @@ export default function Education({ isActive = true }: { isActive?: boolean }) {
 
   return (
     <section className="section-wrapper bg-[#1A0E10] h-screen overflow-hidden relative flex flex-col justify-center py-0">
-      
+
       {/* Background Ambient Glow */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#7A4954]/5 blur-[180px]" />
       </div>
 
       <div className="about-container relative z-10 flex flex-col items-center">
-        
+
         {/* Section Label - Compacted margin */}
         <div className="w-full text-left mb-6 lg:mb-8">
           <div className="about-side-label !mb-0">
@@ -41,9 +41,9 @@ export default function Education({ isActive = true }: { isActive?: boolean }) {
 
         {/* COMPACT LUXURY 2x2 GRID */}
         <div className="education-layout">
-          
+
           {/* [BOX 1] Education Content */}
-          <motion.div 
+          <motion.div
             initial="hidden"
             animate={isActive ? "visible" : "hidden"}
             variants={itemVariants}
@@ -57,9 +57,9 @@ export default function Education({ isActive = true }: { isActive?: boolean }) {
                 <h3 className="education-main-title !text-lg lg:!text-xl !mb-0.5">M.Sc. Biomedical Engineering</h3>
                 <p className="education-sub !text-[0.75rem]">Heidelberg University, Germany • 2025 – Present</p>
               </div>
-              
+
               <div className="w-8 h-[1px] bg-[#7A4954]/20" />
-              
+
               <div>
                 <div className="education-tag">
                   <BookOpen size={12} /> Undergraduate
@@ -72,14 +72,14 @@ export default function Education({ isActive = true }: { isActive?: boolean }) {
           </motion.div>
 
           {/* [BOX 2] Education Image */}
-          <motion.div 
+          <motion.div
             initial="hidden"
             animate={isActive ? "visible" : "hidden"}
             variants={itemVariants}
             transition={{ delay: 0.1 }}
             className="education-image-box"
           >
-            <Image 
+            <Image
               src="/education.png"
               alt="Education Journey"
               fill
@@ -89,14 +89,14 @@ export default function Education({ isActive = true }: { isActive?: boolean }) {
           </motion.div>
 
           {/* [BOX 3] Course Image */}
-          <motion.div 
+          <motion.div
             initial="hidden"
             animate={isActive ? "visible" : "hidden"}
             variants={itemVariants}
             transition={{ delay: 0.2 }}
             className="education-image-box"
           >
-            <Image 
+            <Image
               src="/course.png"
               alt="Course Visualization"
               fill
@@ -106,7 +106,7 @@ export default function Education({ isActive = true }: { isActive?: boolean }) {
           </motion.div>
 
           {/* [BOX 4] Course Content */}
-          <motion.div 
+          <motion.div
             initial="hidden"
             animate={isActive ? "visible" : "hidden"}
             variants={itemVariants}

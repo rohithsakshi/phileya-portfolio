@@ -1,4 +1,3 @@
-
 :root {
   --bg: #1A0E10;
   --surface: #2C1A1E;
@@ -1219,4 +1218,440 @@ body {
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--rosewood); border-radius: 10px; }
+
+
+
+/* -----------------------------------------------------------------
+ * CONTACT & LINGUISTIC SECTION
+ * ----------------------------------------------------------------- */
+
+.contact-row-1 {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.contact-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  color: var(--cream);
+  opacity: 0.6;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.contact-heading {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2rem;
+  color: var(--cream);
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .contact-heading { font-size: 2.25rem; }
+}
+
+@media (min-width: 1024px) {
+  .contact-heading { font-size: 2.5rem; }
+}
+
+.contact-heading-italic {
+  color: var(--rose-light);
+  font-style: italic;
+}
+
+.contact-divider {
+  height: 1px;
+  max-width: 480px;
+  width: 100%;
+  margin-bottom: 2rem;
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--rosewood), transparent);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 480px;
+  width: 100%;
+  row-gap: 1.5rem;
+  column-gap: 2rem;
+}
+
+.contact-lang-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.contact-lang-card.has-border {
+  border-bottom: 1px solid rgba(122, 73, 84, 0.2);
+}
+
+.contact-lang-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.contact-lang-name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 20px;
+  color: var(--cream);
+  transition: color 0.5s ease;
+}
+
+@media (min-width: 768px) {
+  .contact-lang-name { font-size: 26px; }
+}
+
+.contact-lang-card:hover .contact-lang-name {
+  color: var(--rose-light);
+}
+
+.contact-lang-level {
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--rose-light);
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+@media (min-width: 768px) {
+  .contact-lang-level { font-size: 12px; }
+}
+
+.contact-lang-line {
+  height: 1px;
+  width: 28px;
+  background-color: var(--rose-light);
+  opacity: 0.4;
+  transform-origin: left;
+}
+
+.contact-main-divider {
+  height: 1px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 1rem auto;
+  background-color: rgba(122, 73, 84, 0.2);
+  flex-shrink: 0;
+  transform-origin: left;
+}
+
+@media (min-width: 768px) {
+  .contact-main-divider { margin: 1.5rem auto; }
+}
+
+.contact-footer-grid {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: flex-end;
+  gap: 2rem;
+  padding-bottom: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .contact-footer-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+  }
+}
+
+.contact-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-col-header {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--cream);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.contact-input-row {
+  display: flex;
+  flex-direction: row;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .contact-input-row { flex-direction: column; }
+}
+
+.contact-input, .contact-textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(122, 73, 84, 0.3);
+  font-family: "Cormorant Garamond", serif;
+  color: var(--cream);
+  outline: none;
+  padding: 0.5rem 0;
+  transition: border-color 0.3s ease;
+}
+
+.contact-textarea {
+  display: none;
+  resize: none;
+}
+
+@media (min-width: 768px) {
+  .contact-textarea { display: block; }
+}
+
+.contact-input:focus, .contact-textarea:focus {
+  border-bottom-color: var(--rose-light);
+}
+
+.contact-input::placeholder, .contact-textarea::placeholder {
+  font-family: monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--cream-muted);
+  text-transform: uppercase;
+}
+
+.contact-btn {
+  width: fit-content;
+  margin-top: 0.5rem;
+  border: 1px solid rgba(122, 73, 84, 0.3);
+  color: var(--cream);
+  font-family: monospace;
+  font-size: 9px;
+  padding: 0.5rem 1.5rem;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.contact-btn:hover {
+  background-color: rgba(122, 73, 84, 0.2);
+  border-color: var(--rose-light);
+  transform: translateY(-2px);
+}
+
+.contact-links-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 0.75rem;
+  column-gap: 1.5rem;
+}
+
+.contact-link-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--cream-muted);
+  font-family: monospace;
+  font-size: 10px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  width: fit-content;
+}
+
+.contact-link-item:hover {
+  color: var(--cream);
+}
+
+.contact-link-icon {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.contact-link-item:hover .contact-link-icon {
+  opacity: 1;
+}
+
+.contact-link-arrow {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  margin-left: -4px;
+}
+
+.contact-link-item:hover .contact-link-arrow {
+  opacity: 1;
+}
+
+.contact-link-underline {
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  height: 1px;
+  width: 0;
+  background-color: var(--rose-light);
+  transition: width 0.3s ease-out;
+}
+
+.contact-link-item:hover .contact-link-underline {
+  width: 100%;
+}
+
+.contact-brand-col {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .contact-brand-col {
+    text-align: right;
+    align-items: flex-end;
+    margin-top: 0;
+  }
+}
+
+.contact-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.contact-brand-logo {
+  border-radius: 50%;
+  border: 1px solid rgba(122, 73, 84, 0.4);
+  object-fit: cover;
+}
+
+.contact-brand-name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2rem;
+  color: var(--cream);
+  margin-bottom: 0;
+}
+
+@media (min-width: 640px) { .contact-brand-name { font-size: 2.5rem; } }
+@media (min-width: 768px) { .contact-brand-name { font-size: 48px; } }
+
+.contact-brand-sub {
+  font-family: monospace;
+  font-size: 8px;
+  color: var(--cream-muted);
+  margin-bottom: 0.25rem;
+}
+
+.contact-brand-copy {
+  font-family: monospace;
+  font-size: 8px;
+  color: var(--cream-muted);
+  opacity: 0.6;
+}
+
+
+
+/* --- CONTACT MOBILE FIXES --- */
+.contact-section-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  padding: 80px 5vw 20px;
+}
+
+@media (min-width: 768px) {
+  .contact-section-wrapper {
+    padding: 100px 7vw 30px;
+  }
+}
+
+@media (max-width: 767px) {
+  .contact-grid {
+    row-gap: 1rem;
+    column-gap: 1rem;
+  }
+  .contact-lang-name {
+    font-size: 16px;
+  }
+  .contact-lang-level {
+    font-size: 9px;
+  }
+  .contact-footer-grid {
+    gap: 1.5rem;
+  }
+  .contact-brand-logo {
+    width: 32px;
+    height: 32px;
+  }
+  .contact-brand-name {
+    font-size: 24px;
+  }
+  .contact-input-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .contact-input {
+    padding: 0.25rem 0;
+  }
+  .contact-col-header {
+    margin-bottom: 0.5rem;
+  }
+  .contact-btn {
+    padding: 0.4rem 1rem;
+  }
+  .contact-links-grid {
+    row-gap: 0.5rem;
+  }
+  .contact-link-item {
+    font-size: 9px;
+  }
+  .contact-main-divider {
+    margin: 1rem auto;
+  }
+}
+@media (max-height: 700px) and (max-width: 767px) {
+  /* Extremely compact for small phones */
+  .contact-section-wrapper {
+    padding: 60px 5vw 10px;
+  }
+  .contact-heading {
+    font-size: 24px;
+    margin-bottom: 0.5rem;
+  }
+  .contact-eyebrow {
+    margin-bottom: 0.25rem;
+  }
+  .contact-grid {
+    row-gap: 0.5rem;
+  }
+  .contact-footer-grid {
+    gap: 1rem;
+  }
+  .contact-input-row {
+    display: none; /* Hide form inputs on tiny screens to save space */
+  }
+  .contact-btn {
+    width: 100%;
+  }
+}
 
