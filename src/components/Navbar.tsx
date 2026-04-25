@@ -10,6 +10,7 @@ export default function Navbar() {
     { name: "Skills", id: "skills" },
     { name: "Experience", id: "experience" },
     { name: "Projects", id: "project" },
+    { name: "Education", id: "education" },
   ];
 
   const handleNav = (id: string) => {
