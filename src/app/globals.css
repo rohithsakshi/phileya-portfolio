@@ -22,6 +22,14 @@ body {
   overflow: hidden; /* Page.tsx handles scrolling */
 }
 
+/* --- UTILITIES --- */
+.object-cover {
+  object-fit: cover;
+}
+.object-top {
+  object-position: top;
+}
+
 /* --- NAVBAR --- */
 .navbar-wrapper {
   position: fixed;
