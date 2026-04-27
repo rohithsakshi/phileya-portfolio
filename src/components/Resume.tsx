@@ -35,15 +35,15 @@ export default function Resume({ isActive = true }: { isActive?: boolean }) {
       >
         <motion.div 
           variants={itemVariants} 
-          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', maxWidth: '800px' }}
+          className="resume-hero-header"
         >
-          <div className="resume-eyebrow" style={{ letterSpacing: '0.5em', fontSize: '12px', marginBottom: '32px' }}>Resume</div>
+          <div className="resume-eyebrow tracking-[0.5em] text-xs mb-6 md:mb-8">Resume</div>
           
-          <h2 className="resume-title" style={{ fontSize: 'clamp(3.5rem, 7vw, 6rem)', marginBottom: '36px', lineHeight: '1' }}>
+          <h2 className="resume-title mb-6 md:mb-8 leading-tight">
             Comprehensive <span>Timeline.</span>
           </h2>
           
-          <p className="resume-subtitle" style={{ fontSize: '1.15rem', maxWidth: '600px', lineHeight: '1.9', color: '#C8BFA8', marginBottom: '60px' }}>
+          <p className="resume-subtitle text-base md:text-[1.15rem] max-w-[600px] leading-relaxed text-[#C8BFA8] mb-10 md:mb-14 px-4">
             Dive deeply into my professional track record, technical foundations, and project history.
           </p>
         </motion.div>
@@ -53,10 +53,9 @@ export default function Resume({ isActive = true }: { isActive?: boolean }) {
             href="/Phileya_Susan_Koruth_Resume.pdf"
             download="Phileya_Susan_Koruth_Resume.pdf"
             className="resume-btn"
-            style={{ padding: '22px 54px', fontSize: '14px', letterSpacing: '0.15em' }}
           >
-            <span>Download PDF</span>
-            <div className="resume-btn-icon-wrapper" style={{ marginLeft: '8px' }}>
+            <span className="tracking-[0.1em] md:tracking-[0.15em] text-xs md:text-sm">Download PDF</span>
+            <div className="resume-btn-icon-wrapper ml-2">
               <Download size={18} strokeWidth={2.5} />
             </div>
           </a>

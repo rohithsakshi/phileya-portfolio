@@ -1700,6 +1700,15 @@ body {
   align-items: center;
   width: 100%;
   max-width: 1100px;
+  padding: 0 5vw;
+}
+
+.resume-hero-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
 }
 
 .resume-eyebrow {
@@ -1714,10 +1723,9 @@ body {
 
 .resume-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: clamp(2.8rem, 8vw, 6rem);
   color: var(--cream);
   font-weight: 700;
-  margin-bottom: 24px;
   line-height: 1.1;
   text-align: center;
 }
@@ -1730,11 +1738,7 @@ body {
 
 .resume-subtitle {
   color: var(--cream-muted);
-  font-size: 0.95rem;
-  max-width: 600px;
   text-align: center;
-  line-height: 1.7;
-  margin-bottom: 50px;
   font-weight: 300;
 }
 
@@ -1907,14 +1911,12 @@ body {
 .resume-btn {
   display: inline-flex;
   align-items: center;
-  gap: 16px;
-  padding: 18px 40px;
+  gap: 12px;
+  padding: 16px 32px;
   background: linear-gradient(135deg, var(--rosewood), #4A2C33);
   color: var(--cream);
   border-radius: 999px;
-  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.1em;
   text-transform: uppercase;
   text-decoration: none;
   box-shadow: 0 10px 30px -10px rgba(122, 73, 84, 0.6);
@@ -1922,6 +1924,13 @@ body {
   transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .resume-btn {
+    padding: 22px 54px;
+    gap: 16px;
+  }
 }
 
 .resume-btn:hover {
