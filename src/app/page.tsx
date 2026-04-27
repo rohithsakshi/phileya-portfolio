@@ -9,6 +9,7 @@ import Experience from '@/components/Experience';
 import Project from '@/components/Project';
 import Education from '@/components/Education';
 import Contact from '@/components/Contact';
+import Resume from '@/components/Resume';
 import Navbar from '@/components/Navbar';
 import CustomCursor from '@/components/CustomCursor';
 
@@ -19,6 +20,7 @@ const SECTIONS = [
   { id: 'experience', component: Experience },
   { id: 'project', component: Project },
   { id: 'education', component: Education },
+  { id: 'resume', component: Resume },
   { id: 'contact', component: Contact },
 ];
 

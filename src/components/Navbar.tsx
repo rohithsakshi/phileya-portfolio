@@ -55,7 +55,7 @@ export default function Navbar() {
 
         <button
           className="nav-cta-link"
-          onClick={() => handleNav('contact')}
+          onClick={() => handleNav('resume')}
         >
           RESUME
         </button>
